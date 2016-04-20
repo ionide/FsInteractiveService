@@ -93,6 +93,17 @@ let ``Type checking errors have correct line number`` () =
   errors.Details.[0].StartLine |> should equal 666
 
 [<Test>]
+let ``Start printing in background and read output later`` () =
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = "async {\n  do! Async.Sleep(100)\n  printfn \"ciao!\" } |> Async.Start" } 
+  |> getResponse Main.app
+  |> should not' (contain "ciao")
+
+  makeContext "/output"
+  |> getResponse Main.app
+  |> should contain "ciao"
+
+[<Test>]
 let ``Start 'while true do ()' and cancel it afterwards`` () =
   let loop =
     makeContext "/eval"
