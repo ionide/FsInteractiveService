@@ -98,6 +98,7 @@ let ``Start printing in background and read output later`` () =
   |> withContent { file = "/test.fsx"; line = 10; code = "async {\n  do! Async.Sleep(100)\n  printfn \"ciao!\" } |> Async.Start" } 
   |> getResponse Main.app
   |> should not' (contain "ciao")
+  Thread.Sleep(1000)
 
   makeContext "/output"
   |> getResponse Main.app
