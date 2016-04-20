@@ -1,0 +1,25 @@
+type project
+title
+    FsInteractiveService
+owners
+    Tomas Petricek
+authors 
+    Tomas Petricek
+projectUrl
+    http://github.com/ionide/FsInteractiveService
+iconUrl
+    https://raw.githubusercontent.com/ionide/FsInteractiveService/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/ionide/FsInteractiveService/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    fsi interactive fsharp f# service
+summary
+    F# interactive service API exposed via a lightweight HTTP server
+description
+    F# interactive API exposed via a lightweight HTTP server
+
+

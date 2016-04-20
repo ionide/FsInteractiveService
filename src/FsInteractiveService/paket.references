@@ -1,0 +1,5 @@
+group Build
+
+Suave
+Newtonsoft.Json
+FSharp.Compiler.Service

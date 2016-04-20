@@ -1,0 +1,10 @@
+group Test
+
+FsUnit
+NUnit
+NUnit.Runners
+FSharp.Data
+
+group Build
+
+Suave
