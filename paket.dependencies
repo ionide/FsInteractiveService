@@ -2,10 +2,10 @@ source https://nuget.org/api/v2
 
 group Build
   source https://nuget.org/api/v2
-  
+
   nuget SourceLink.Fake
   nuget FAKE
-  nuget FSharp.Formatting
+  nuget FSharp.Formatting 2.14.1
   nuget Suave
   nuget FSharp.Compiler.Service
   nuget Newtonsoft.Json
@@ -14,7 +14,7 @@ group Build
 
 group Test
   source https://nuget.org/api/v2
-  
+
   nuget NUnit ~> 2
   nuget NUnit.Runners ~> 2
   nuget FsUnit

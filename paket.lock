@@ -5,13 +5,13 @@ NUGET
   remote: https://www.nuget.org/api/v2
   specs:
     FAKE (4.25.4)
-    FSharp.Compiler.Service (3.0)
+    FSharp.Compiler.Service (2.0.0.6)
     FSharp.Core (4.0.0.1)
-    FSharp.Formatting (2.10)
-      FSharp.Compiler.Service (>= 0.0.87)
-      FSharpVSPowerTools.Core (1.8)
-    FSharpVSPowerTools.Core (1.8)
-      FSharp.Compiler.Service (>= 0.0.87)
+    FSharp.Formatting (2.14.1)
+      FSharp.Compiler.Service (2.0.0.6)
+      FSharpVSPowerTools.Core (>= 2.3 < 2.4)
+    FSharpVSPowerTools.Core (2.3)
+      FSharp.Compiler.Service (>= 2.0.0.3)
     Microsoft.Bcl (1.1.10) - framework: net10, net11, net20, net30, net35, net40, net40-full
       Microsoft.Bcl.Build (>= 1.0.14)
     Microsoft.Bcl.Build (1.0.21) - import_targets: false, framework: net10, net11, net20, net30, net35, net40, net40-full
