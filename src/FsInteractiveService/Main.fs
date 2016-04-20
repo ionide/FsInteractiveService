@@ -91,7 +91,7 @@ let evaluateInteraction file line code session =
             let meth = it.GetType().GetMethod("ToHtml")
             let html = if meth <> null then meth.Invoke(it, [| |]).ToString() else null
             { result = "success"; output = output; details = { string = it.ToString(); html = html } } 
-        | _ -> { result = "success"; output = output; details = null } 
+        | _ -> { result = "success"; output = output; details = { string = null; html = null } } 
 
 
 type EvaluateRequest = 
