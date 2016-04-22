@@ -3,9 +3,14 @@ module FsInteractiveService.Main
 open System
 open System.IO
 open System.Text
+open System.Threading
 open Microsoft.FSharp.Compiler
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open Microsoft.FSharp.Compiler.Interactive.Shell
+
+// ------------------------------------------------------------------------------------------------
+// Serializing F# records using Newtonsoft.Json
+// ------------------------------------------------------------------------------------------------
 
 module NJson = 
     let private json = Newtonsoft.Json.JsonSerializer.Create()
@@ -45,7 +50,9 @@ type ItValue =
 type FsiSession =
   { Output : StringBuilder
     Session : FsiEvaluationSession }
+    
 
+/// Extend the `fsi` object with `fsi.AddHtmlPrinter` 
 let addHtmlPrinter = """
   module FsInteractiveService = 
     let htmlPrinters = ResizeArray<_>()
@@ -58,6 +65,8 @@ let addHtmlPrinter = """
         | :? 'T as value -> Some(f value)
         | _ -> None)"""
 
+
+/// Start the F# interactive session with HAS_FSI_ADDHTMLPRINTER symbol defined
 let startSession () = 
     let sbOut = new StringBuilder()
     let inStream = new StringReader("")
@@ -69,12 +78,23 @@ let startSession () =
 
     let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Settings.fsi)
     let fsiSession = FsiEvaluationSession.Create(fsiConfig, allArgs, inStream, outStream, errStream) 
+    
+    /// Run the `fsi.AddHtmlPrinter` extension and remove it from output
     let origLength = sbOut.Length
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
     Console.SetOut(new StringWriter(sbOut))
     { Output = sbOut; Session = fsiSession }
 
+
+/// Helper for extracting results from a two element tuple returned by FSI session
+let (|FsiTupleResult|_|) (res:FsiValue) = 
+  match Reflection.FSharpValue.GetTupleFields(res.ReflectionValue) with
+  | [| v1; v2 |] -> Some(v1, v2)
+  | _ -> None
+
+
+/// Evaluate interaction and return exception/error/success, possibly with formatted HTML value
 let evaluateInteraction file line code session = 
     let dir = Path.GetDirectoryName(file)
     let allcode = sprintf "#silentCd @\"%s\"\n# %d @\"%s\"\n%s" dir line file code
@@ -98,16 +118,18 @@ let evaluateInteraction file line code session =
           details = exn.ToString() }    
 
     | Choice1Of2 (), _ ->
-        let itval = session.Session.EvalExpressionNonThrowing("it")
+        let itval = session.Session.EvalExpressionNonThrowing("it, FsInteractiveService.tryFormatHtml it")
+        session.Session.EvalInteraction("(null:obj)")
         session.Output.Clear() |> ignore
         match itval with
-        | Choice1Of2(Some res), _ when res.ReflectionValue <> null -> 
-            let it = res.ReflectionValue          
-            let meth = it.GetType().GetMethod("ToHtml")
-            let html = if meth <> null then meth.Invoke(it, [| |]).ToString() else null
-            { result = "success"; output = output; details = { string = it.ToString(); html = html } } 
+        | Choice1Of2(Some(FsiTupleResult(itval, (:? option<string> as html)))), _ when itval <> null ->
+            { result = "success"; output = output; details = { string = itval.ToString(); html = defaultArg html null } } 
         | _ -> { result = "success"; output = output; details = { string = null; html = null } } 
 
+
+// ------------------------------------------------------------------------------------------------
+// Background agent that handles F# Interactive Service requests
+// ------------------------------------------------------------------------------------------------
 
 type EvaluateRequest = 
   { File : string
@@ -122,7 +144,6 @@ type AgentMessage =
   | Cancel
   | Done
 
-open System.Threading
 
 let agent = MailboxProcessor.Start(fun inbox -> 
     let queue = System.Collections.Generic.Queue()
@@ -175,6 +196,11 @@ let agent = MailboxProcessor.Start(fun inbox ->
 
     running None (startSession()))
 
+
+// ------------------------------------------------------------------------------------------------
+// Expose everything via lightweight Suave server
+// ------------------------------------------------------------------------------------------------
+
 open Suave
 open Suave.Http
 open Suave.Filters
@@ -192,6 +218,10 @@ type EvalRequest =
 let app =
     Writers.setMimeType "application/json; charset=utf-8" >=>
     POST >=> choose [
+        // Returns:
+        //  - Result<TypeCheckError[]> when result = "error" 
+        //  - Result<string>           when result = "exception"
+        //  - Result<ItValue>          when result = "success"
         path "/eval" >=> request (fun request ctx -> async {
             let req = NJson.fromJson (Encoding.UTF8.GetString request.rawForm)
             let! res = 
@@ -200,7 +230,8 @@ let app =
             match res with 
             | Choice1Of2 result -> return! Successful.OK (NJson.toJson result) ctx
             | Choice2Of2 exn -> return! ServerErrors.INTERNAL_ERROR (exn.ToString()) ctx })
-
+        
+        // Returns: Result<unit>  with result = "output"
         path "/output" >=> handleRequest (fun _ -> 
             agent.PostAndAsyncReply(ReadOutput))
 

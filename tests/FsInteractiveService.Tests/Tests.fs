@@ -132,5 +132,29 @@ let ``Start 'while true do ()' and cancel it afterwards`` () =
 [<Test>]
 let ``HAS_FSI_ADDHTMLPRINTER is defined`` () = 
   makeContext "/eval"
-  |> withContent { file = "/test.fsx"; line = 10; code = "#if HAS_FSI_ADDHTMLPRINTER\n\"good\"\n#else\n\"\"\n#endif" } 
+  |> withContent { file = "/test.fsx"; line = 10; code = "#if HAS_FSI_ADDHTMLPRINTER\n\"fsi addhtml defined\"\n#else\n\"\"\n#endif" } 
+  |> getResponse Main.app |> should contain "fsi addhtml defined"
+
+[<Test>]
+let ``Can use fsi.AddHtmlPrinter for formatting objects as HTML`` () = 
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """fsi.AddHtmlPrinter(fun (n:int) -> "<strong>" + string n + "</strong>")""" } 
+  |> getResponse Main.app 
+  |> ignore
+
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """42""" } 
   |> getResponse Main.app
+  |> should contain "<strong>42</strong>"
+
+[<Test>]
+let ``The `it` value is reset after it is accessed once`` () = 
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """100*100""" } 
+  |> getResponse Main.app 
+  |> should contain "\"string\":\"10000\""
+
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """#time""" } 
+  |> getResponse Main.app 
+  |> should contain "\"string\":null"
