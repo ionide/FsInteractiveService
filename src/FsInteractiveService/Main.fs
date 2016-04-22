@@ -43,9 +43,10 @@ type Result =
     output : string
     details : obj }
 
-type ItValue =
+type EvalDetails =
   { string : string
-    html : string }
+    html : string 
+    warnings : TypeCheckError[] }
 
 type FsiSession =
   { Output : StringBuilder
@@ -93,6 +94,11 @@ let (|FsiTupleResult|_|) (res:FsiValue) =
   | [| v1; v2 |] -> Some(v1, v2)
   | _ -> None
 
+let convertErrors (errors:FSharpErrorInfo[]) = 
+    [| for e in errors -> 
+        { startLine = e.StartLineAlternate; endLine = e.EndLineAlternate; startColumn = e.StartColumn
+          endColumn = e.EndColumn; fileName = e.FileName; errorNumber = e.ErrorNumber; message = e.Message
+          severity = if e.Severity = FSharpErrorSeverity.Error then "error" else "warning" } |]
 
 /// Evaluate interaction and return exception/error/success, possibly with formatted HTML value
 let evaluateInteraction file line code session = 
@@ -103,28 +109,27 @@ let evaluateInteraction file line code session =
     session.Output.Clear() |> ignore
 
     match res with
-    | _, errors when errors.Length > 0 ->
+    | _, errors when errors |> Seq.exists (fun e -> e.Severity = FSharpErrorSeverity.Error) ->
         { result = "error"
           output = output
-          details = 
-            [| for e in errors -> 
-                { startLine = e.StartLineAlternate; endLine = e.EndLineAlternate; startColumn = e.StartColumn
-                  endColumn = e.EndColumn; fileName = e.FileName; errorNumber = e.ErrorNumber; message = e.Message
-                  severity = if e.Severity = FSharpErrorSeverity.Error then "error" else "warning" } |] }
+          details = convertErrors errors }
 
     | Choice2Of2 exn, _ ->
         { result = "exception"
           output = output
           details = exn.ToString() }    
 
-    | Choice1Of2 (), _ ->
+    | Choice1Of2 (), warnings ->
         let itval = session.Session.EvalExpressionNonThrowing("it, FsInteractiveService.tryFormatHtml it")
         session.Session.EvalInteraction("(null:obj)")
         session.Output.Clear() |> ignore
         match itval with
         | Choice1Of2(Some(FsiTupleResult(itval, (:? option<string> as html)))), _ when itval <> null ->
-            { result = "success"; output = output; details = { string = itval.ToString(); html = defaultArg html null } } 
-        | _ -> { result = "success"; output = output; details = { string = null; html = null } } 
+            { result = "success"; output = output; 
+              details = { string = itval.ToString(); html = defaultArg html null; warnings = convertErrors warnings } } 
+        | _ -> 
+            { result = "success"; output = output; 
+              details = { string = null; html = null; warnings = convertErrors warnings } } 
 
 
 // ------------------------------------------------------------------------------------------------
@@ -221,7 +226,7 @@ let app =
         // Returns:
         //  - Result<TypeCheckError[]> when result = "error" 
         //  - Result<string>           when result = "exception"
-        //  - Result<ItValue>          when result = "success"
+        //  - Result<EvalDetails>          when result = "success"
         path "/eval" >=> request (fun request ctx -> async {
             let req = NJson.fromJson (Encoding.UTF8.GetString request.rawForm)
             let! res = 

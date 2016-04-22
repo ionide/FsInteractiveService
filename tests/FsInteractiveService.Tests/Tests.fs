@@ -158,3 +158,12 @@ let ``The `it` value is reset after it is accessed once`` () =
   |> withContent { file = "/test.fsx"; line = 10; code = """#time""" } 
   |> getResponse Main.app 
   |> should contain "\"string\":null"
+
+[<Test>]
+let ``Evaluating `(1;1)+41` should produce warning and result``() =
+  let result = 
+    makeContext "/eval"
+    |> withContent { file = "/test.fsx"; line = 10; code = """(1;1)+41""" } 
+    |> getResponse Main.app 
+  result |> should contain "This expression should have type 'unit'"
+  result |> should contain "42"
