@@ -46,6 +46,18 @@ type FsiSession =
   { Output : StringBuilder
     Session : FsiEvaluationSession }
 
+let addHtmlPrinter = """
+  module FsInteractiveService = 
+    let htmlPrinters = ResizeArray<_>()
+    let tryFormatHtml o = htmlPrinters |> Seq.tryPick (fun f -> f o)
+
+  type Microsoft.FSharp.Compiler.Interactive.InteractiveSession with
+    member x.AddHtmlPrinter<'T>(f:'T -> string) = 
+      FsInteractiveService.htmlPrinters.Add(fun (value:obj) ->
+        match value with
+        | :? 'T as value -> Some(f value)
+        | _ -> None)"""
+
 let startSession () = 
     let sbOut = new StringBuilder()
     let inStream = new StringReader("")
@@ -53,10 +65,13 @@ let startSession () =
     let errStream = new StringWriter(sbOut)
 
     let argv = [| "/tmp/fsi.exe" |]
-    let allArgs = Array.append argv [|"--noninteractive"|]
+    let allArgs = Array.append argv [|"--noninteractive"; "--define:HAS_FSI_ADDHTMLPRINTER" |]
 
-    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration()
+    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Settings.fsi)
     let fsiSession = FsiEvaluationSession.Create(fsiConfig, allArgs, inStream, outStream, errStream) 
+    let origLength = sbOut.Length
+    fsiSession.EvalInteraction(addHtmlPrinter)
+    sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
     Console.SetOut(new StringWriter(sbOut))
     { Output = sbOut; Session = fsiSession }
 

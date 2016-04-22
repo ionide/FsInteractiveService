@@ -35,7 +35,7 @@ function yesno() {
 }
 
 set +e
-run $PAKET_BOOTSTRAPPER_EXE
+run $PAKET_BOOTSTRAPPER_EXE prerelease
 bootstrapper_exitcode=$?
 set -e
 
@@ -63,7 +63,7 @@ then
   fi
   # Re-run bootstrapper whether or not the user ran mozroots, because maybe
   # they fixed the problem in a separate terminal window.
-  run $PAKET_BOOTSTRAPPER_EXE
+  run $PAKET_BOOTSTRAPPER_EXE prerelease
 fi
 
 run $PAKET_EXE restore

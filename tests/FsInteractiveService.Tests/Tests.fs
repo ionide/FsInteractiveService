@@ -128,3 +128,9 @@ let ``Start 'while true do ()' and cancel it afterwards`` () =
   loop.Result |> should contain "OperationCanceledException"
   add.Result |> should contain "42"
   cancel.Result |> should contain "canceled"
+
+[<Test>]
+let ``HAS_FSI_ADDHTMLPRINTER is defined`` () = 
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = "#if HAS_FSI_ADDHTMLPRINTER\n\"good\"\n#else\n\"\"\n#endif" } 
+  |> getResponse Main.app

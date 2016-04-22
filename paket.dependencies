@@ -7,6 +7,7 @@ group Build
   nuget FAKE
   nuget FSharp.Formatting 2.14.1
   nuget Suave
+  nuget FSharp.Compiler.Tools
   nuget FSharp.Compiler.Service
   nuget Newtonsoft.Json
 
