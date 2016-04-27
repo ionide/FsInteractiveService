@@ -77,13 +77,21 @@ let startSession () =
     let argv = [| "/tmp/fsi.exe" |]
     let allArgs = Array.append argv [|"--noninteractive"; "--define:HAS_FSI_ADDHTMLPRINTER" |]
 
-    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Settings.fsi)
+    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Settings.fsi, false)
     let fsiSession = FsiEvaluationSession.Create(fsiConfig, allArgs, inStream, outStream, errStream) 
     
-    /// Run the `fsi.AddHtmlPrinter` extension and remove it from output
+    // Report unhandled background exceptions to the output stream
+    AppDomain.CurrentDomain.UnhandledException.Add(fun ex ->
+        sbOut.AppendLine(ex.ExceptionObject.ToString()) |> ignore )
+
+    // Load the `fsi` object from the right location of the `FSharp.Compiler.Interactive.Settings.dll`
+    // assembly and add the `fsi.AddHtmlPrinter` extension method; then clean it from FSI output
+    let fsiLocation = Microsoft.FSharp.Compiler.Interactive.Settings.fsi.GetType().Assembly.Location
+    fsiSession.EvalInteraction("#r @\"" + fsiLocation + "\"")
     let origLength = sbOut.Length
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
+
     Console.SetOut(new StringWriter(sbOut))
     { Output = sbOut; Session = fsiSession }
 
@@ -100,10 +108,33 @@ let convertErrors (errors:FSharpErrorInfo[]) =
           endColumn = e.EndColumn; fileName = e.FileName; errorNumber = e.ErrorNumber; message = e.Message
           severity = if e.Severity = FSharpErrorSeverity.Error then "error" else "warning" } |]
 
+/// Remove whitespace from the beginning of the snippet. For example, given
+/// "  let a = 10\n  a + a", we drop two spaces and get just "let a = 10\na + a"
+let dropTrailingWhiteSpace code = 
+    // Split string into lines using StreamReader (which handles all odd \r\n combos)
+    let lines = 
+      [ use sr = new StringReader(code)
+        let line = ref (sr.ReadLine())
+        while line.Value <> null do 
+          yield line.Value
+          line := sr.ReadLine() ]
+
+    // Count number of spaces on non-empty lines & drop them
+    let spaces = 
+      lines 
+      |> Seq.filter (String.IsNullOrWhiteSpace >> not) 
+      |> Seq.map (fun s -> s.Length - s.TrimStart(' ').Length) 
+      |> Seq.min
+    lines 
+    |> Seq.map (fun l ->
+        if String.IsNullOrWhiteSpace l then l
+        else l.Substring(spaces))
+    |> String.concat "\n"
+
 /// Evaluate interaction and return exception/error/success, possibly with formatted HTML value
-let evaluateInteraction file line code session = 
+let evaluateInteraction file line (code:string) session = 
     let dir = Path.GetDirectoryName(file)
-    let allcode = sprintf "#silentCd @\"%s\"\n# %d @\"%s\"\n%s" dir line file code
+    let allcode = sprintf "#silentCd @\"%s\"\n# %d @\"%s\"\n%s" dir line file (dropTrailingWhiteSpace code)
     let res = session.Session.EvalInteractionNonThrowing(allcode)
     let output = session.Output.ToString()
     session.Output.Clear() |> ignore
