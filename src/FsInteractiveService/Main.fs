@@ -56,15 +56,15 @@ type FsiSession =
 /// Extend the `fsi` object with `fsi.AddHtmlPrinter` 
 let addHtmlPrinter = """
   module FsInteractiveService = 
-    let htmlPrinters = ResizeArray<_>()
+    let mutable htmlPrinters = []
     let tryFormatHtml o = htmlPrinters |> Seq.tryPick (fun f -> f o)
 
   type Microsoft.FSharp.Compiler.Interactive.InteractiveSession with
     member x.AddHtmlPrinter<'T>(f:'T -> string) = 
-      FsInteractiveService.htmlPrinters.Add(fun (value:obj) ->
+      FsInteractiveService.htmlPrinters <- (fun (value:obj) ->
         match value with
         | :? 'T as value -> Some(f value)
-        | _ -> None)"""
+        | _ -> None) :: FsInteractiveService.htmlPrinters"""
 
 
 /// Start the F# interactive session with HAS_FSI_ADDHTMLPRINTER symbol defined
