@@ -86,9 +86,9 @@ let startSession () =
 
     // Load the `fsi` object from the right location of the `FSharp.Compiler.Interactive.Settings.dll`
     // assembly and add the `fsi.AddHtmlPrinter` extension method; then clean it from FSI output
+    let origLength = sbOut.Length
     let fsiLocation = Microsoft.FSharp.Compiler.Interactive.Settings.fsi.GetType().Assembly.Location
     fsiSession.EvalInteraction("#r @\"" + fsiLocation + "\"")
-    let origLength = sbOut.Length
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
 
