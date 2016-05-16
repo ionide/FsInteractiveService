@@ -1,11 +1,12 @@
-
+REDIRECTS: ON
 
 GROUP Build
+REDIRECTS: ON
 NUGET
   remote: https://www.nuget.org/api/v2
     FAKE (4.25.4)
     FSharp.Compiler.Service (2.0.0.6)
-    FSharp.Compiler.Tools (3.1.2.2)
+    FSharp.Compiler.Tools (4.0.0.1)
     FSharp.Core (4.0.0.1)
     FSharp.Formatting (2.14.1)
       FSharp.Compiler.Service (2.0.0.6)
@@ -29,6 +30,7 @@ GITHUB
     modules/Octokit/Octokit.fsx (db3139b0bf8a93047a68ca10f0135f1e94a10cae)
       Octokit
 GROUP Test
+REDIRECTS: ON
 NUGET
   remote: https://www.nuget.org/api/v2
     FSharp.Core (4.0.0.1)
