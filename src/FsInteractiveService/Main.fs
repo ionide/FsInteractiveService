@@ -59,7 +59,8 @@ let addHtmlPrinter = """
     let mutable htmlPrinters = []
     let tryFormatHtml o = htmlPrinters |> Seq.tryPick (fun f -> f o)
 
-  type Microsoft.FSharp.Compiler.Interactive.Shell.Settings.InteractiveSettings with
+
+  type Microsoft.FSharp.Compiler.Interactive.InteractiveSession with
     member x.AddHtmlPrinter<'T>(f:'T -> string) = 
       FsInteractiveService.htmlPrinters <- (fun (value:obj) ->
         match value with
@@ -88,11 +89,10 @@ let startSession () =
     // assembly and add the `fsi.AddHtmlPrinter` extension method; then clean it from FSI output
     let origLength = sbOut.Length
 
-    // they appear to be the same but just to make sure
-    let interactiveSettingsLocation = typeof<Microsoft.FSharp.Compiler.Interactive.Shell.Settings.InteractiveSettings>.Assembly.Location
-    let fsiLocation                 = Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi.GetType().Assembly.Location
+    let interactiveSessionLocation = typeof<Microsoft.FSharp.Compiler.Interactive.InteractiveSession>.Assembly.Location
+    let fsiLocation                = Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi.GetType().Assembly.Location
 
-    fsiSession.EvalInteraction("#r @\"" + interactiveSettingsLocation + "\"")
+    fsiSession.EvalInteraction("#r @\"" + interactiveSessionLocation + "\"")
     fsiSession.EvalInteraction("#r @\"" + fsiLocation + "\"")
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
