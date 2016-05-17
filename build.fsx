@@ -109,10 +109,24 @@ Target "AssemblyInfo" (fun _ ->
 // But keeps a subdirectory structure for each project in the
 // src folder to support multiple project outputs
 Target "CopyBinaries" (fun _ ->
+    let fsharpCoreDir = (__SOURCE_DIRECTORY__ </> "packages" </> "build" </> "FSharp.Core" </> "lib" </> "net40")
+    
     !! "src/**/*.??proj"
     -- "src/**/*.shproj"
-    |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
-    |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
+    |>  Seq.map (fun f -> ((__SOURCE_DIRECTORY__ </> System.IO.Path.GetDirectoryName f) </> "bin" </> "Release", __SOURCE_DIRECTORY__ </> "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
+    |>  Seq.iter (fun (fromDir, toDir) ->
+        CopyDir fromDir fsharpCoreDir (fun _ -> true)
+        CopyDir toDir fromDir (fun _ -> true)
+    )
+
+    !! "src/**/*.??proj"
+    ++ "tests/**/*.??proj"
+    -- "src/**/*.shproj"
+    -- "tests/**/*.shproj"
+    |>  Seq.map (fun f -> (__SOURCE_DIRECTORY__ </> System.IO.Path.GetDirectoryName f) </> "bin" </> "Release")
+    |>  Seq.iter (fun fromDir ->
+        CopyDir fromDir fsharpCoreDir (fun _ -> true)
+    )
 )
 
 // --------------------------------------------------------------------------------------
