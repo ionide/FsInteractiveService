@@ -1,67 +1,44 @@
-(*** hide ***)
-// This block of code is omitted in the generated HTML documentation. Use 
-// it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
-
 (**
-FsInteractiveService
+F# Interactive Service
 ======================
 
+The FsInteractiveService project provides a simple layer over the F# Interactive services
+from the [F# Compiler Services project](http://fsharp.github.io/FSharp.Compiler.Services). It makes the
+service available as a stand-alone process that can be started and called via HTTP requests. It is very
+similar to the [FsAutoComplete](https://github.com/fsharp/FsAutoComplete/) project, which provides similar
+out-of-process wrapper for F# Compiler IDE services.
+
+The FsInteractiveService project can be used to build F# Interactive editor integration for editors
+that are not based on .NET such as Atom. For example, the following shows some of the features of the
+F# Interactive integration in [Ionide](http://ionide.io).
+
+<img src="img/atom.png" style="width:80%; margin:10px 10% 10px 10%" />
+
 Documentation
+-------------
 
-<div class="row">
-  <div class="span1"></div>
-  <div class="span6">
-    <div class="well well-small" id="nuget">
-      The FsInteractiveService library can be <a href="https://nuget.org/packages/FsInteractiveService">installed from NuGet</a>:
-      <pre>PM> Install-Package FsInteractiveService</pre>
-    </div>
-  </div>
-  <div class="span1"></div>
-</div>
+ * [Creating HTML printers](htmlprinter.html) discusses an extension that F# Interactive Service provides
+   for formatting values as HTML objects. This can be done by registering a printer using `fsi.AddHtmlPrinter`.
 
-Example
--------
+ * [Calling FsInteractiveService via HTTP](http.html) shows how to start the `FsInteractiveService.exe` process
+   in background and how to communicate with it using REST-based API over network. It shows different commands
+   you can send and responses you'll get back.
 
-This example demonstrates using a function defined in this sample library.
-
-*)
-#r "FsInteractiveService.dll"
-open FsInteractiveService
-
-printfn "hello = %i" <| Library.hello 0
-
-(**
-Some more info
-
-Samples & documentation
------------------------
-
-The library comes with comprehensible documentation. 
-It can include tutorials automatically generated from `*.fsx` files in [the content folder][content]. 
-The API reference is automatically generated from Markdown comments in the library implementation.
-
- * [Tutorial](tutorial.html) contains a further explanation of this sample library.
-
- * [API Reference](reference/index.html) contains automatically generated documentation for all types, modules
-   and functions in the library. This includes additional brief samples on using most of the
-   functions.
- 
 Contributing and copyright
 --------------------------
 
-The project is hosted on [GitHub][gh] where you can [report issues][issues], fork 
-the project and submit pull requests. If you're adding a new public API, please also 
+The project is hosted on [GitHub][gh] where you can [report issues][issues], fork
+the project and submit pull requests. If you're adding a new public API, please also
 consider adding [samples][content] that can be turned into a documentation. You might
 also want to read the [library design notes][readme] to understand how it works.
 
-The library is available under Public Domain license, which allows modification and 
-redistribution for both commercial and non-commercial purposes. For more information see the 
-[License file][license] in the GitHub repository. 
+The library is available under Public Domain license, which allows modification and
+redistribution for both commercial and non-commercial purposes. For more information see the
+[License file][license] in the GitHub repository.
 
-  [content]: https://github.com/fsprojects/FsInteractiveService/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/FsInteractiveService
-  [issues]: https://github.com/fsprojects/FsInteractiveService/issues
-  [readme]: https://github.com/fsprojects/FsInteractiveService/blob/master/README.md
-  [license]: https://github.com/fsprojects/FsInteractiveService/blob/master/LICENSE.txt
+  [content]: https://github.com/ionide/FsInteractiveService/tree/master/docs/content
+  [gh]: https://github.com/ionide/FsInteractiveService
+  [issues]: https://github.com/ionide/FsInteractiveService/issues
+  [readme]: https://github.com/ionide/FsInteractiveService/blob/master/README.md
+  [license]: https://github.com/ionide/FsInteractiveService/blob/master/LICENSE.txt
 *)
