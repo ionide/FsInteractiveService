@@ -129,7 +129,7 @@ let dropTrailingWhiteSpace code =
       lines 
       |> Seq.filter (String.IsNullOrWhiteSpace >> not) 
       |> Seq.map (fun s -> s.Length - s.TrimStart(' ').Length) 
-      |> Seq.min
+      |> Seq.fold min Int32.MaxValue
     lines 
     |> Seq.map (fun l ->
         if String.IsNullOrWhiteSpace l then l
