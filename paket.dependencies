@@ -1,8 +1,8 @@
 source https://nuget.org/api/v2
-
+redirects: on
 group Build
   source https://nuget.org/api/v2
-
+  redirects: on
   nuget SourceLink.Fake
   nuget FAKE
   nuget FSharp.Formatting 2.14.1
@@ -10,12 +10,12 @@ group Build
   nuget FSharp.Compiler.Tools
   nuget FSharp.Compiler.Service
   nuget Newtonsoft.Json
-
+  nuget FSharp.Core
   github fsharp/FAKE modules/Octokit/Octokit.fsx
 
 group Test
   source https://nuget.org/api/v2
-
+  redirects: on
   nuget NUnit ~> 2
   nuget NUnit.Runners ~> 2
   nuget FsUnit
