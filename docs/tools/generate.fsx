@@ -105,6 +105,25 @@ let buildReference () =
       sourceFolder = __SOURCE_DIRECTORY__ @@ ".." @@ "..",
       publicOnly = true,libDirs = libDirs )
 
+// Fsi Evaluator
+#r "../../packages/test/FSharp.Data/lib/net40/FSharp.Data.dll"
+open FSharp.Markdown
+open FSharp.Data
+let fsiEval = FsiEvaluator([||], FsiEvaluatorConfig.CreateNoOpFsiObject())
+let rec shortenStrings = function
+  | JsonValue.String s -> JsonValue.String(if s.Length > 50 then s.Substring(0, 50) + "..." else s) 
+  | JsonValue.Array els -> els |> Array.map shortenStrings |> JsonValue.Array
+  | JsonValue.Record kvps -> kvps |> Array.map (fun (a, b) -> a, shortenStrings b) |> JsonValue.Record
+  | j -> j
+
+fsiEval.RegisterTransformation(fun (v, typ) ->
+  if typ = typeof<string> then
+    try 
+      let json = FSharp.Data.JsonValue.Parse (string v) |> shortenStrings
+      Some [ MarkdownParagraph.CodeBlock(json.ToString(), "js", "") ]
+    with _ -> None
+  else None )
+
 // Build documentation from `fsx` and `md` files in `docs/content`
 let buildDocumentation () =
 
@@ -113,6 +132,7 @@ let buildDocumentation () =
   Literate.ProcessDirectory
     ( content, docTemplate, output, replacements = ("root", root)::info,
       layoutRoots = layoutRootsAll.["en"],
+      fsiEvaluator = fsiEval,
       generateAnchors = true,
       processRecursive = false)
 
