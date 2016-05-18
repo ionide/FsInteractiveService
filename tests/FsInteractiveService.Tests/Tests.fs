@@ -136,7 +136,7 @@ let ``HAS_FSI_ADDHTMLPRINTER is defined`` () =
   |> getResponse Main.app |> should contain "fsi addhtml defined"
 
 [<Test>]
-let ``Can use fsi.AddHtmlPrinter for formatting objects as HTML`` () = 
+let ``Can use AddHtmlPrinter for formatting objects as HTML`` () = 
   makeContext "/eval"
   |> withContent { file = "/test.fsx"; line = 10; code = """fsi.AddHtmlPrinter(fun (n:int) -> "<strong>" + string n + "</strong>")""" } 
   |> getResponse Main.app 
