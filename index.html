@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>F# Interactive Service
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="F# interactive service API exposed via a lightweight HTTP server"/>
+    <meta name="author" content="Tomas Petricek"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FsInteractiveService/content/style.css" />
+    <script type="text/javascript" src="/FsInteractiveService/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/ionide/FsInteractiveService">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FsInteractiveService/index.html">FsInteractiveService</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="F-Interactive-Service" class="anchor" href="#F-Interactive-Service">F# Interactive Service</a></h1>
+<p>The FsInteractiveService project provides a simple layer over the F# Interactive services
+from the <a href="http://fsharp.github.io/FSharp.Compiler.Services">F# Compiler Services project</a>. It makes the
+service available as a stand-alone process that can be started and called via HTTP requests. It is very
+similar to the <a href="https://github.com/fsharp/FsAutoComplete/">FsAutoComplete</a> project, which provides similar
+out-of-process wrapper for F# Compiler IDE services.</p>
+<p>The FsInteractiveService project can be used to build F# Interactive editor integration for editors
+that are not based on .NET such as Atom. For example, the following shows some of the features of the
+F# Interactive integration in <a href="http://ionide.io">Ionide</a>.</p>
+<img src="img/atom.png" style="width:80%; margin:10px 10% 10px 10%" />
+<h2><a name="Documentation" class="anchor" href="#Documentation">Documentation</a></h2>
+<ul>
+<li>
+<p><a href="htmlprinter.html">Creating HTML printers</a> discusses an extension that F# Interactive Service provides
+for formatting values as HTML objects. This can be done by registering a printer using <code>fsi.AddHtmlPrinter</code>.</p>
+</li>
+<li>
+<p><a href="http.html">Calling FsInteractiveService via HTTP</a> shows how to start the <code>FsInteractiveService.exe</code> process
+in background and how to communicate with it using REST-based API over network. It shows different commands
+you can send and responses you'll get back.</p>
+</li>
+</ul>
+<h2><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h2>
+<p>The project is hosted on <a href="https://github.com/fsprojects/FsInteractiveService">GitHub</a> where you can <a href="https://github.com/fsprojects/FsInteractiveService/issues">report issues</a>, fork
+the project and submit pull requests. If you're adding a new public API, please also
+consider adding <a href="https://github.com/fsprojects/FsInteractiveService/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
+also want to read the <a href="https://github.com/fsprojects/FsInteractiveService/blob/master/README.md">library design notes</a> to understand how it works.</p>
+<p>The library is available under Public Domain license, which allows modification and
+redistribution for both commercial and non-commercial purposes. For more information see the
+<a href="https://github.com/fsprojects/FsInteractiveService/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
+
+
+        </div>
+        <div class="span3">
+          <img src="/FsInteractiveService/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FsInteractiveService</li>
+            <li><a href="/FsInteractiveService/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <!--
+            <li><a href="http://nuget.org/packages/FsInteractiveService">Get Library via NuGet</a></li>
+            -->
+            <li><a href="http://github.com/ionide/FsInteractiveService">Source Code on GitHub</a></li>
+            <li><a href="/FsInteractiveService/license.html">License</a></li>
+            <li><a href="/FsInteractiveService/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Fsi extensions</li>
+            <li><a href="/FsInteractiveService/htmlprinter.html">Formatting HTML objects</a></li>
+            
+            <li class="nav-header">Calling the service</li>
+            <li><a href="/FsInteractiveService/http.html">Using HTTP server API</a></li>
+            <li>Using stndard I/O API</li>
+            <!--
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FsInteractiveService/reference/index.html">API Reference</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/ionide/FsInteractiveService"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
