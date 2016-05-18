@@ -1,3 +1,5 @@
+[![Travis build status](https://travis-ci.org/ionide/FsInteractiveService.png)](https://travis-ci.org/ionide/FsInteractiveService)
+
 # FsInteractiveService
 
 The FsInteractiveService project provides a simple layer over the F# Interactive services
