@@ -286,7 +286,18 @@ let app =
 
 [<EntryPoint>]
 let main argv =
-    let port = try int argv.[0] with _ -> 8707
-    let serverConfig = { defaultConfig with bindings = [HttpBinding.mkSimple HTTP "127.0.0.1" port]}
+    let binding =
+        let create address port = HttpBinding.mkSimple HTTP (defaultArg address "127.0.0.1") (defaultArg port 8707)
+        let parsePort port = match Int32.TryParse port with | true, port -> Some port | _ -> None
+
+        if argv.Length = 0 then
+            create None None
+        else
+            match argv.[0].Split(':') with
+            | [|""; port|] -> create None (parsePort port)
+            | [|address; port|] -> create (Some address) (parsePort port)
+            | _ -> create None None
+
+    let serverConfig = { defaultConfig with bindings = [binding]}
     startWebServer serverConfig app
     0

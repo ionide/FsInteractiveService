@@ -18,14 +18,15 @@ The server exposes endpoints:
 Starting the server
 -------------------
 
-For the purpose of the demo, we start the server using `Process.Start`. The process takes one parameter,
-which is the port to be used.
+For the purpose of the demo, we start the server using `Process.Start`. The process takes one optional 
+parameter, which is the binding address and port to be used. Either part may also be omitted, in which 
+case the defaults are used (`127.0.0.1` and `8707`, respectively).
 
 *)
 let fsiservice = 
   ProcessStartInfo
     ( FileName = root + "FsInteractiveService.exe", 
-      Arguments="18082",
+      Arguments=":18082",
       CreateNoWindow=true,UseShellExecute=false )
   |> Process.Start
 (**
