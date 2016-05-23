@@ -1,20 +1,13 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace System
 open System.Reflection
-open System.Runtime.CompilerServices
 
-[<assembly: AssemblyTitle("MonoDevelop.FSharp.Shared")>]
-[<assembly: AssemblyDescription("")>]
-[<assembly: AssemblyConfiguration("")>]
-[<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("")>]
-[<assembly: AssemblyCopyright("(c) Jason Imison")>]
-[<assembly: AssemblyTrademark("")>]
+[<assembly: AssemblyTitleAttribute("FsInteractiveService.Shared")>]
+[<assembly: AssemblyProductAttribute("FsInteractiveService")>]
+[<assembly: AssemblyDescriptionAttribute("F# interactive service API exposed via a lightweight HTTP server")>]
+[<assembly: AssemblyVersionAttribute("0.1.0")>]
+[<assembly: AssemblyFileVersionAttribute("0.1.0")>]
+do ()
 
-// The assembly version has the format {Major}.{Minor}.{Build}.{Revision}
-
-[<assembly: AssemblyVersion("1.0.0.0")>]
-
-//[<assembly: AssemblyDelaySign(false)>]
-//[<assembly: AssemblyKeyFile("")>]
-
-()
+module internal AssemblyVersionInformation =
+    let [<Literal>] Version = "0.1.0"
+    let [<Literal>] InformationalVersion = "0.1.0"

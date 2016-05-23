@@ -1,0 +1,624 @@
+[20:05:11] SERVICE
+  Sending request: [object Object]
+[20:05:14] SERVICE
+  Sending request: [object Object]
+[20:05:18] SERVICE
+  Got 'errors': [object Object]
+[20:05:18] SERVICE
+  Sending request: [object Object]
+[20:05:18] SERVICE
+  Got 'errors': [object Object]
+[20:05:18] SERVICE
+  Sending request: [object Object]
+[20:05:18] SERVICE
+  Got 'lint': [object Object]
+[20:05:18] SERVICE
+  Got 'lint': [object Object]
+[20:22:48] SERVICE
+  Sending request: [object Object]
+[20:22:48] SERVICE
+  Sending request: [object Object]
+[20:22:48] SERVICE
+  Sending request: [object Object]
+[20:22:49] SERVICE
+  Got 'error': [object Object]
+[20:22:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\docs\\content\\index.fsx' not parsed"}': [object Object]
+[20:22:49] SERVICE
+  Sending request: [object Object]
+[20:22:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\docs\\content\\index.fsx' not parsed"}': [object Object]
+[20:22:49] SERVICE
+  Got 'error': [object Object]
+[20:22:49] SERVICE
+  Got 'error': [object Object]
+[20:22:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\docs\\content\\index.fsx' not parsed"}': [object Object]
+[20:22:49] SERVICE
+  Got 'errors': [object Object]
+[20:22:49] SERVICE
+  Sending request: [object Object]
+[20:22:49] SERVICE
+  Got 'lint': [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Got 'errors': [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Got 'lint': [object Object]
+[20:22:51] SERVICE
+  Got 'info': [object Object]
+[20:22:51] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:51] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:51] SERVICE
+  Got 'info': [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Sending request: [object Object]
+[20:22:51] SERVICE
+  Got 'info': [object Object]
+[20:22:51] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:51] SERVICE
+  Got 'info': [object Object]
+[20:22:51] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Sending request: [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:52] SERVICE
+  Got 'info': [object Object]
+[20:22:52] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Got 'info': [object Object]
+[20:22:53] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:53] SERVICE
+  Got 'info': [object Object]
+[20:22:53] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:53] SERVICE
+  Got 'errors': [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Got 'lint': [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Sending request: [object Object]
+[20:22:53] SERVICE
+  Got 'info': [object Object]
+[20:22:53] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:53] SERVICE
+  Got 'info': [object Object]
+[20:22:53] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:54] SERVICE
+  Sending request: [object Object]
+[20:22:54] SERVICE
+  Sending request: [object Object]
+[20:22:54] SERVICE
+  Sending request: [object Object]
+[20:22:54] SERVICE
+  Got 'info': [object Object]
+[20:22:54] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:54] SERVICE
+  Got 'info': [object Object]
+[20:22:54] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:54] SERVICE
+  Got 'errors': [object Object]
+[20:22:54] SERVICE
+  Sending request: [object Object]
+[20:22:54] SERVICE
+  Got 'lint': [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:55] SERVICE
+  Got 'errors': [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Got 'lint': [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Sending request: [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:55] SERVICE
+  Got 'info': [object Object]
+[20:22:55] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'info': [object Object]
+[20:22:56] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'info': [object Object]
+[20:22:56] SERVICE
+  Received info event '{"Kind":"info","Data":"No symbol information found"}': [object Object]
+[20:22:56] SERVICE
+  Got 'errors': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'errors': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'lint': [object Object]
+[20:22:56] SERVICE
+  Got 'lint': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'errors': [object Object]
+[20:22:56] SERVICE
+  Sending request: [object Object]
+[20:22:56] SERVICE
+  Got 'lint': [object Object]
+[20:22:58] SERVICE
+  Sending request: [object Object]
+[20:22:58] SERVICE
+  Sending request: [object Object]
+[20:22:58] SERVICE
+  Got 'info': [object Object]
+[20:22:58] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:22:58] SERVICE
+  Got 'info': [object Object]
+[20:22:58] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:27:53] SERVICE
+  Sending request: [object Object]
+[20:27:54] SERVICE
+  Sending request: [object Object]
+[20:27:54] SERVICE
+  Sending request: [object Object]
+[20:27:54] SERVICE
+  Sending request: [object Object]
+[20:27:54] SERVICE
+  Got 'error': [object Object]
+[20:27:54] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:54] SERVICE
+  Got 'error': [object Object]
+[20:27:54] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:54] SERVICE
+  Got 'error': [object Object]
+[20:27:54] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:55] SERVICE
+  Sending request: [object Object]
+[20:27:55] SERVICE
+  Got 'error': [object Object]
+[20:27:55] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:55] SERVICE
+  Sending request: [object Object]
+[20:27:55] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:55] SERVICE
+  Sending request: [object Object]
+[20:27:55] SERVICE
+  Got 'error': [object Object]
+[20:27:55] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:55] SERVICE
+  Got 'error': [object Object]
+[20:27:55] SERVICE
+  Sending request: [object Object]
+[20:27:55] SERVICE
+  Sending request: [object Object]
+[20:27:55] SERVICE
+  Got 'error': [object Object]
+[20:27:55] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:55] SERVICE
+  Got 'error': [object Object]
+[20:27:55] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:56] SERVICE
+  Sending request: [object Object]
+[20:27:56] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:56] SERVICE
+  Got 'error': [object Object]
+[20:27:56] SERVICE
+  Sending request: [object Object]
+[20:27:56] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:56] SERVICE
+  Got 'error': [object Object]
+[20:27:57] SERVICE
+  Sending request: [object Object]
+[20:27:57] SERVICE
+  Sending request: [object Object]
+[20:27:57] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:57] SERVICE
+  Got 'error': [object Object]
+[20:27:57] SERVICE
+  Sending request: [object Object]
+[20:27:57] SERVICE
+  Got 'error': [object Object]
+[20:27:57] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:27:59] SERVICE
+  Got 'errors': [object Object]
+[20:27:59] SERVICE
+  Sending request: [object Object]
+[20:27:59] SERVICE
+  Got 'errors': [object Object]
+[20:27:59] SERVICE
+  Sending request: [object Object]
+[20:27:59] SERVICE
+  Got 'lint': [object Object]
+[20:27:59] SERVICE
+  Got 'lint': [object Object]
+[20:28:46] SERVICE
+  Sending request: [object Object]
+[20:28:47] SERVICE
+  Got 'tooltip': [object Object]
+[20:30:34] SERVICE
+  Sending request: [object Object]
+[20:30:34] SERVICE
+  Got 'info': [object Object]
+[20:30:34] SERVICE
+  Received info event '{"Kind":"info","Data":"No tooltip information"}': [object Object]
+[20:31:04] SERVICE
+  Sending request: [object Object]
+[20:31:04] SERVICE
+  Got 'info': [object Object]
+[20:31:04] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Sending request: [object Object]
+[20:31:49] SERVICE
+  Got 'error': [object Object]
+[20:31:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:49] SERVICE
+  Got 'error': [object Object]
+[20:31:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:49] SERVICE
+  Got 'error': [object Object]
+[20:31:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:49] SERVICE
+  Got 'error': [object Object]
+[20:31:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:49] SERVICE
+  Got 'error': [object Object]
+[20:31:49] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:50] SERVICE
+  Sending request: [object Object]
+[20:31:50] SERVICE
+  Sending request: [object Object]
+[20:31:50] SERVICE
+  Got 'error': [object Object]
+[20:31:50] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:50] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:50] SERVICE
+  Got 'error': [object Object]
+[20:31:51] SERVICE
+  Sending request: [object Object]
+[20:31:51] SERVICE
+  Got 'error': [object Object]
+[20:31:51] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:51] SERVICE
+  Sending request: [object Object]
+[20:31:51] SERVICE
+  Sending request: [object Object]
+[20:31:51] SERVICE
+  Got 'error': [object Object]
+[20:31:51] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:51] SERVICE
+  Got 'error': [object Object]
+[20:31:51] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:52] SERVICE
+  Sending request: [object Object]
+[20:31:52] SERVICE
+  Sending request: [object Object]
+[20:31:52] SERVICE
+  Got 'error': [object Object]
+[20:31:52] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:52] SERVICE
+  Got 'error': [object Object]
+[20:31:52] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:52] SERVICE
+  Sending request: [object Object]
+[20:31:52] SERVICE
+  Sending request: [object Object]
+[20:31:52] SERVICE
+  Got 'error': [object Object]
+[20:31:52] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:52] SERVICE
+  Got 'error': [object Object]
+[20:31:52] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:53] SERVICE
+  Sending request: [object Object]
+[20:31:53] SERVICE
+  Sending request: [object Object]
+[20:31:53] SERVICE
+  Got 'error': [object Object]
+[20:31:53] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:53] SERVICE
+  Got 'error': [object Object]
+[20:31:53] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[20:31:54] SERVICE
+  Got 'errors': [object Object]
+[20:31:54] SERVICE
+  Sending request: [object Object]
+[20:31:54] SERVICE
+  Got 'lint': [object Object]
+[20:31:56] SERVICE
+  Sending request: [object Object]
+[20:31:56] SERVICE
+  Sending request: [object Object]
+[20:31:56] SERVICE
+  Got 'info': [object Object]
+[20:31:56] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:31:56] SERVICE
+  Got 'info': [object Object]
+[20:31:56] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:31:58] SERVICE
+  Sending request: [object Object]
+[20:31:58] SERVICE
+  Sending request: [object Object]
+[20:31:58] SERVICE
+  Got 'info': [object Object]
+[20:31:58] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:31:58] SERVICE
+  Got 'info': [object Object]
+[20:31:58] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:31:59] SERVICE
+  Sending request: [object Object]
+[20:31:59] SERVICE
+  Sending request: [object Object]
+[20:31:59] SERVICE
+  Got 'info': [object Object]
+[20:31:59] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:31:59] SERVICE
+  Got 'info': [object Object]
+[20:31:59] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:01] SERVICE
+  Sending request: [object Object]
+[20:32:01] SERVICE
+  Sending request: [object Object]
+[20:32:01] SERVICE
+  Got 'info': [object Object]
+[20:32:01] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:01] SERVICE
+  Got 'info': [object Object]
+[20:32:01] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:01] SERVICE
+  Sending request: [object Object]
+[20:32:01] SERVICE
+  Got 'info': [object Object]
+[20:32:01] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:04] SERVICE
+  Sending request: [object Object]
+[20:32:04] SERVICE
+  Sending request: [object Object]
+[20:32:04] SERVICE
+  Got 'info': [object Object]
+[20:32:04] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:04] SERVICE
+  Got 'info': [object Object]
+[20:32:04] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:05] SERVICE
+  Sending request: [object Object]
+[20:32:05] SERVICE
+  Sending request: [object Object]
+[20:32:05] SERVICE
+  Got 'info': [object Object]
+[20:32:05] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:05] SERVICE
+  Got 'info': [object Object]
+[20:32:05] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:08] SERVICE
+  Sending request: [object Object]
+[20:32:08] SERVICE
+  Sending request: [object Object]
+[20:32:08] SERVICE
+  Sending request: [object Object]
+[20:32:08] SERVICE
+  Got 'info': [object Object]
+[20:32:08] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:08] SERVICE
+  Got 'info': [object Object]
+[20:32:08] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:08] SERVICE
+  Got 'errors': [object Object]
+[20:32:08] SERVICE
+  Sending request: [object Object]
+[20:32:08] SERVICE
+  Got 'lint': [object Object]
+[20:32:09] SERVICE
+  Sending request: [object Object]
+[20:32:09] SERVICE
+  Sending request: [object Object]
+[20:32:09] SERVICE
+  Sending request: [object Object]
+[20:32:09] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:09] SERVICE
+  Got 'info': [object Object]
+[20:32:09] SERVICE
+  Got 'info': [object Object]
+[20:32:09] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:09] SERVICE
+  Got 'errors': [object Object]
+[20:32:09] SERVICE
+  Sending request: [object Object]
+[20:32:09] SERVICE
+  Got 'lint': [object Object]
+[20:32:10] SERVICE
+  Sending request: [object Object]
+[20:32:10] SERVICE
+  Sending request: [object Object]
+[20:32:10] SERVICE
+  Got 'info': [object Object]
+[20:32:10] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:10] SERVICE
+  Got 'info': [object Object]
+[20:32:10] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Got 'info': [object Object]
+[20:32:11] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:11] SERVICE
+  Got 'info': [object Object]
+[20:32:11] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Received info event '{"Kind":"info","Data":"Cannot find ident for tooltip"}': [object Object]
+[20:32:11] SERVICE
+  Got 'info': [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Got 'info': [object Object]
+[20:32:11] SERVICE
+  Received info event '{"Kind":"info","Data":"No ident at this location"}': [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Got 'errors': [object Object]
+[20:32:11] SERVICE
+  Sending request: [object Object]
+[20:32:11] SERVICE
+  Got 'lint': [object Object]

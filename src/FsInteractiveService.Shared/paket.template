@@ -1,7 +1,6 @@
-type file
-id FsInteractiveService.Http
+type project
 title
-    F# Interactive Service (HTTP)
+    F# Interactive Service (Shared)
 owners
     Tomas Petricek, Krzysztof Cieslak
 authors 
@@ -19,9 +18,8 @@ copyright
 tags
     fsi interactive fsharp f# service
 summary
-    F# interactive service API exposed via a lightweight HTTP server
+    Shared components of the F# Interactive Service
 description
-    F# interactive API exposed via a lightweight HTTP server. The project makes the service available as a stand-alone process that can be started and called via HTTP requests. It follows the same style as FsAutoComplete.
-files
-    ../../bin/FsInteractiveService ==> tools
-    !!../../bin/FsInteractiveService/App.config
+    Shared components of the F# Interactive Service. This provides a lightweight wrapper over F# Compiler Service and exposes operations for getting auto-completion and other editor services in F# Interactive.
+
+
