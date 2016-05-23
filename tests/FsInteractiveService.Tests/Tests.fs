@@ -4,6 +4,7 @@
 #r "../../packages/test/FsUnit/lib/net45/FsUnit.NUnit.dll"
 #I "../../src/FsInteractiveService/bin/Debug"
 #r "Suave.dll"
+#r "FSharp.Compiler.Service.dll"
 #r "FsInteractiveService.exe"
 #else
 module FsInteractiveService.Tests
@@ -167,3 +168,22 @@ let ``Evaluating `(1;1)+41` should produce warning and result``() =
     |> getResponse Main.app 
   result |> should contain "This expression should have type 'unit'"
   result |> should contain "42"
+
+[<Test>]
+let ``Can do autocomplete on previously defined 'rnd' value``() = 
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = "let rnd = new System.Random()" } 
+  |> getResponse Main.app
+  |> ignore
+
+  makeContext "/completion"
+  |> withContent { sourceLine = "rnd."; column = 4 }
+  |> getResponse Main.app 
+  |> should contain "NextDouble"
+
+[<Test>]
+let ``Can do autocomplete on Microsoft.FSharp namespace``() = 
+  makeContext "/completion"
+  |> withContent { sourceLine = "Microsoft.FSharp.Collections.Array4D.length1"; column = 17 }
+  |> getResponse Main.app 
+  |> should contain "NativeInterop"

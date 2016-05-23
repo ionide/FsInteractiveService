@@ -11,12 +11,12 @@ type CompletionData = {
     completionText: string
     category: string
     icon: string
-    overloads: CompletionData list
+    overloads: CompletionData[]
     description: string
 }
 
 type PathCompletion = {
-    paths: string seq
+    paths: string[]
     residue: string
 }
 
@@ -87,7 +87,7 @@ module Completion =
                     completionText = PrettyNaming.QuoteIdentifierIfNeeded displayText
                     icon = symbolToIcon symbol
                     category = ""
-                    overloads = []
+                    overloads = [||]
                     description = null
                 }, symbol)
         match symbols with
@@ -113,12 +113,12 @@ module Completion =
 
     let hashDirectives =
         [
-            { displayText = "#r"; completionText ="#r"; category ="keywords"; icon = "md-keyword"; description = "Reference (dynamically load) the given DLL"; overloads = [] }
-            { displayText = "#I"; completionText = "#I"; category ="keywords"; icon = "md-keyword"; description = "Add the given search path for referenced DLLs"; overloads = [] }
-            { displayText = "#load"; completionText = "#load"; category ="keywords"; icon = "md-keyword"; description = "Load the given file(s) as if compiled and referenced"; overloads = [] }
-            { displayText = "#time"; completionText = "#time"; category ="keywords"; icon = "md-keyword"; description = "Toggle timing on/off"; overloads = [] }
-            { displayText = "#help"; completionText = "#help"; category ="keywords"; icon = "md-keyword"; description = "Display help"; overloads = [] }
-            { displayText = "#quit"; completionText = "#quit"; category ="keywords"; icon = "md-keyword"; description = "Exit"; overloads = [] }
+            { displayText = "#r"; completionText ="#r"; category ="keywords"; icon = "md-keyword"; description = "Reference (dynamically load) the given DLL"; overloads = [||] }
+            { displayText = "#I"; completionText = "#I"; category ="keywords"; icon = "md-keyword"; description = "Add the given search path for referenced DLLs"; overloads = [||] }
+            { displayText = "#load"; completionText = "#load"; category ="keywords"; icon = "md-keyword"; description = "Load the given file(s) as if compiled and referenced"; overloads = [||] }
+            { displayText = "#time"; completionText = "#time"; category ="keywords"; icon = "md-keyword"; description = "Toggle timing on/off"; overloads = [||] }
+            { displayText = "#help"; completionText = "#help"; category ="keywords"; icon = "md-keyword"; description = "Display help"; overloads = [||] }
+            { displayText = "#quit"; completionText = "#quit"; category ="keywords"; icon = "md-keyword"; description = "Exit"; overloads = [||] }
         ]
          
     let mutable symbolList = List.empty
@@ -155,7 +155,7 @@ module Completion =
                        |> Seq.map(fun path -> path.[separatorIndex+workingFolder.Value.Length+1+offset..])
         } 
 
-        { residue=residue; paths=paths  }
+        { residue=residue; paths=Array.ofSeq paths  }
 
     let getCompletions (fsiSession: FsiEvaluationSession, input:string, column: int) =
         async {
@@ -168,10 +168,9 @@ module Completion =
             let completions, symbols = results |> List.unzip
             symbolList <- symbols
             if longName.Length = 0 && residue.Length = 0 then
-                return completions
-                |> List.append hashDirectives
+                return (List.append hashDirectives completions) |> Array.ofList
             else
-                return completions
+                return completions |> Array.ofList
         }
 
     let getCompletionTooltip filter =

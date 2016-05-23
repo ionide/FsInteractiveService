@@ -7,6 +7,7 @@ open System.Threading
 open Microsoft.FSharp.Compiler
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open Microsoft.FSharp.Compiler.Interactive.Shell
+open FsInteractiveService.Shared
 
 // ------------------------------------------------------------------------------------------------
 // Serializing F# records using Newtonsoft.Json
@@ -178,9 +179,15 @@ type EvaluateRequest =
     Code : string
     Reply : AsyncReplyChannel<Choice<Result, exn>> }
 
+type CompletionRequest = 
+  { LineString : string
+    Column : int
+    Reply : AsyncReplyChannel<CompletionData[]> }
+
 type AgentMessage = 
   | ReadOutput of AsyncReplyChannel<Result>
   | Evaluate of EvaluateRequest
+  | Completion of CompletionRequest
   | Reset 
   | Cancel
   | Done
@@ -233,8 +240,13 @@ let agent = MailboxProcessor.Start(fun inbox ->
                     req.Reply.Reply(Choice2Of2 e)
                 finally inbox.Post(Done) )
             t.Start()
-            return! running (Some t) session }
-
+            return! running (Some t) session 
+        
+        // IntelliSense - handle autocompletion request
+        | Completion req, _ ->
+            let! results = Completion.getCompletions(session.Session, req.LineString, req.Column)
+            req.Reply.Reply(results)
+            return! running thread session }
     running None (startSession()))
 
 
@@ -251,10 +263,14 @@ let handleRequest op ctx = async {
     let! result = op ctx.request
     return! ctx |> Successful.OK (NJson.toJson result) }
 
-type EvalRequest = 
+type RestEvaluationRequest = 
   { file : string
     line : int
     code : string }
+
+type RestCompletionRequest = 
+  { sourceLine : string 
+    column : int }
 
 let app =
     Writers.setMimeType "application/json; charset=utf-8" >=>
@@ -282,7 +298,31 @@ let app =
 
         path "/cancel" >=> handleRequest (fun _ -> async {
             agent.Post(Cancel)
-            return { result = "canceled"; output=""; details = null }}) ]
+            return { result = "canceled"; output=""; details = null }}) 
+        
+        //path "/tooltip" >=> handleRequest (fun _ -> async {
+        //    let! tooltip = Completion.getCompletionTooltip filter
+        //    do! writeData "tooltip" tooltip })
+
+        path "/completion" >=> handleRequest (fun r -> async {
+            let req = NJson.fromJson (Encoding.UTF8.GetString r.rawForm)
+            let! res = agent.PostAndAsyncReply(fun ch ->
+              Completion { LineString = req.sourceLine; Column = req.column; Reply = ch })
+            return res })
+(*
+                        return currentInput
+                    | Completion context ->
+                        let col, lineStr = context
+                        let! results = Completion.getCompletions(fsiSession, lineStr, col)
+                        do! writeData "completion" results
+                        return currentInput
+                    | ParameterHints context ->
+                        let col, lineStr = context
+                        let! results = Completion.getParameterHints(fsiSession, lineStr, col)
+                        do! writeData "parameter-hints" results
+                        return currentInput
+*)
+            ]
 
 [<EntryPoint>]
 let main argv =
