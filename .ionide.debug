@@ -622,3 +622,77 @@
   Sending request: [object Object]
 [20:32:11] SERVICE
   Got 'lint': [object Object]
+[23:42:08] SERVICE
+  Sending request: [object Object]
+[23:42:08] SERVICE
+  Sending request: [object Object]
+[23:42:08] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Got 'error': [object Object]
+[23:42:09] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:09] SERVICE
+  Sending request: [object Object]
+[23:42:10] SERVICE
+  Sending request: [object Object]
+[23:42:10] SERVICE
+  Sending request: [object Object]
+[23:42:10] SERVICE
+  Got 'error': [object Object]
+[23:42:10] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:10] SERVICE
+  Got 'error': [object Object]
+[23:42:10] SERVICE
+  Received error event '{"Kind":"error","Data":"File 'C:\\Tomas\\Public\\ionide\\FsInteractiveService\\build.fsx' not parsed"}': [object Object]
+[23:42:14] SERVICE
+  Got 'errors': [object Object]
+[23:42:14] SERVICE
+  Sending request: [object Object]
+[23:42:15] SERVICE
+  Got 'lint': [object Object]
+[23:42:23] SERVICE
+  Sending request: [object Object]
+[23:42:23] SERVICE
+  Sending request: [object Object]
+[23:42:23] SERVICE
+  Sending request: [object Object]
