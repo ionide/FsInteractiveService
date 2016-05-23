@@ -262,7 +262,7 @@ let app =
         // Returns:
         //  - Result<TypeCheckError[]> when result = "error" 
         //  - Result<string>           when result = "exception"
-        //  - Result<EvalDetails>          when result = "success"
+        //  - Result<EvalDetails>      when result = "success"
         path "/eval" >=> request (fun request ctx -> async {
             let req = NJson.fromJson (Encoding.UTF8.GetString request.rawForm)
             let! res = 
@@ -296,7 +296,9 @@ let main argv =
             match argv.[0].Split(':') with
             | [|""; port|] -> create None (parsePort port)
             | [|address; port|] -> create (Some address) (parsePort port)
-            | _ -> create None None
+            | [|port|] when fst(Int32.TryParse(port)) = true -> create None (parsePort port)
+            | [|address|] -> create (Some address) None
+            | _ -> failwith (sprintf "Invalid command line parameter '%s'" argv.[0])
 
     let serverConfig = { defaultConfig with bindings = [binding]}
     startWebServer serverConfig app

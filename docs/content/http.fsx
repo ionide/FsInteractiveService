@@ -26,10 +26,14 @@ case the defaults are used (`127.0.0.1` and `8707`, respectively).
 let fsiservice = 
   ProcessStartInfo
     ( FileName = root + "FsInteractiveService.exe", 
-      Arguments=":18082",
+      Arguments="18082",
       CreateNoWindow=true,UseShellExecute=false )
   |> Process.Start
 (**
+
+Here, we start the process at a port `18082`. You could specify address and port by providing an
+argument in the format `0.0.0.0:80`. When the parameter does not contain `:`, it is treated either
+as a port or as an address, depending on whether it can be parsed as an integer.
 
 Reading FSI output
 ------------------
