@@ -24,6 +24,10 @@ Documentation
    in background and how to communicate with it using REST-based API over network. It shows different commands
    you can send and responses you'll get back.
 
+ * [Using IntelliSense services via HTTP](intelli.html) discusses IntelliSense functionality exposed by the
+   `FsInteractiveService.exe` process. This lets you get auto-completion in F# Interactive, access tooltips for
+   objects in completion lists and get hints on method parameters.
+
 Contributing and copyright
 --------------------------
 

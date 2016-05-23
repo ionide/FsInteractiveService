@@ -121,8 +121,6 @@ module Completion =
             { displayText = "#quit"; completionText = "#quit"; category ="keywords"; icon = "md-keyword"; description = "Exit"; overloads = [||] }
         ]
          
-    let mutable symbolList = List.empty
-
     let getPaths directive (path: string) =
         seq {
             // absolute paths
@@ -166,14 +164,13 @@ module Completion =
                           |> List.choose symbolToCompletionData
 
             let completions, symbols = results |> List.unzip
-            symbolList <- symbols
             if longName.Length = 0 && residue.Length = 0 then
-                return (List.append hashDirectives completions) |> Array.ofList
+                return symbols, (List.append hashDirectives completions) |> Array.ofList
             else
-                return completions |> Array.ofList
+                return symbols, completions |> Array.ofList
         }
 
-    let getCompletionTooltip filter =
+    let getCompletionTooltip (symbolList:FSharpSymbolUse list) filter =
         async {
             let symbol =
                 symbolList 

@@ -112,7 +112,9 @@ open FSharp.Data
 let fsiEval = FsiEvaluator([||], FsiEvaluatorConfig.CreateNoOpFsiObject())
 let rec shortenStrings = function
   | JsonValue.String s -> JsonValue.String(if s.Length > 50 then s.Substring(0, 50) + "..." else s) 
-  | JsonValue.Array els -> els |> Array.map shortenStrings |> JsonValue.Array
+  | JsonValue.Array els -> 
+      let mapped = els |> Array.map shortenStrings |> Array.truncate 3
+      JsonValue.Array(mapped)
   | JsonValue.Record kvps -> kvps |> Array.map (fun (a, b) -> a, shortenStrings b) |> JsonValue.Record
   | j -> j
 

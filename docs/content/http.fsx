@@ -4,8 +4,8 @@ open FSharp.Data
 open System.Diagnostics
 let root = __SOURCE_DIRECTORY__ + "/../../bin/FsInteractiveService/"
 (**
-Calling FsInteractiveService via HTTP
-=====================================
+Running snippets via HTTP API
+=============================
 
 This page gives a very brief overview of the commands exposed by the `FsInteractiveService.exe` server.
 The server exposes endpoints:
@@ -14,6 +14,7 @@ The server exposes endpoints:
  - `/eval` for evaluating expressions and interactions
  - `/cancel` for cancelling running computation
  - `/reset` for restarting the F# Interactive (this is limited though; see below)
+ - endpoints for IntelliSense [are discussed in a separate document](intelli.html)
 
 Starting the server
 -------------------

@@ -10,24 +10,30 @@ open Microsoft.FSharp.Compiler.Interactive.Shell
 open FsInteractiveService.Shared
 
 // ------------------------------------------------------------------------------------------------
-// Serializing F# records using Newtonsoft.Json
+// Types that are exposed via REST API
 // ------------------------------------------------------------------------------------------------
 
-module NJson = 
-    let private json = Newtonsoft.Json.JsonSerializer.Create()
-    let fromJson<'T> str = 
-        use sr = new StringReader(str)
-        json.Deserialize(sr, typeof<'T>) :?> 'T
+/// Request data for /eval
+type EvaluationRequest = 
+  { file : string
+    line : int
+    code : string }
 
-    let toJson (obj:'T) = 
-        let sb = StringBuilder()
-        ( use sw = new StringWriter(sb)
-          json.Serialize(sw, obj) )
-        sb.ToString()
+/// Request data for /paramhints and /completion
+type LineColumnRequest = 
+  { sourceLine : string 
+    column : int }
 
-// ------------------------------------------------------------------------------------------------
-// F# Compiler Service Interop
-// ------------------------------------------------------------------------------------------------
+/// Request dta for /tooltip
+type ToolTipRequest =   
+  { filter : string }
+
+
+/// Response data for /eval
+type Result =
+  { result : string
+    output : string
+    details : obj (* unit + EvalDetails + TypeCheckError[] *) }
 
 type TypeCheckError = 
   { startLine : int
@@ -39,15 +45,36 @@ type TypeCheckError =
     errorNumber : int
     message : string }
 
-type Result =
-  { result : string
-    output : string
-    details : obj }
-
 type EvalDetails =
   { string : string
     html : string 
     warnings : TypeCheckError[] }
+
+
+/// Reply to /tooltip
+type ToolTipResponse = 
+  { signature:string
+    doc:obj (* null + FullXmlDoc + LookupXmlDoc *)
+    footer:string }
+
+type FullXmlDoc =  
+  { xmldoc : string }
+
+type LookupXmlDoc =   
+  { key : string
+    fileName : string }
+
+
+// Reply to /paramhints
+type ParameterToolTip =
+  { signature : string
+    doc : obj (* null + FullXmlDoc + LookupXmlDoc *)
+    parameters : string[] }
+
+
+// ------------------------------------------------------------------------------------------------
+// F# Compiler Service Interop
+// ------------------------------------------------------------------------------------------------
 
 type FsiSession =
   { Output : StringBuilder
@@ -173,85 +200,109 @@ let evaluateInteraction file line (code:string) session =
 // Background agent that handles F# Interactive Service requests
 // ------------------------------------------------------------------------------------------------
 
-type EvaluateRequest = 
-  { File : string
-    Line : int
-    Code : string
-    Reply : AsyncReplyChannel<Choice<Result, exn>> }
-
-type CompletionRequest = 
-  { LineString : string
-    Column : int
-    Reply : AsyncReplyChannel<CompletionData[]> }
-
 type AgentMessage = 
-  | ReadOutput of AsyncReplyChannel<Result>
-  | Evaluate of EvaluateRequest
-  | Completion of CompletionRequest
-  | Reset 
-  | Cancel
-  | Done
+    | ReadOutput of AsyncReplyChannel<Result>
+    | Evaluate of EvaluationRequest * AsyncReplyChannel<Choice<Result, exn>>
+    | Completion of LineColumnRequest * AsyncReplyChannel<CompletionData[]>
+    | ParameterHints of LineColumnRequest * AsyncReplyChannel<ParameterToolTip[]>
+    | Tooltip of ToolTipRequest * AsyncReplyChannel<ToolTipResponse option>
+    | Reset 
+    | Cancel
+    | Done
 
+/// Turns XML doc into `null + FullXmlDoc + LookupXmlDoc` for JSON encoding
+let boxXmlDoc doc = 
+    match doc with 
+    | XmlDoc.EmptyDoc -> null
+    | XmlDoc.Full s -> box { xmldoc = s }
+    | XmlDoc.Lookup(k, Some f) -> box { key = k; fileName = f }
+    | XmlDoc.Lookup(k, None) -> box { key = k; fileName = null }
 
 let agent = MailboxProcessor.Start(fun inbox -> 
     let queue = System.Collections.Generic.Queue()
-    let rec running thread session = async {
+    let rec running symbols thread session = async {
 
         // Run operation from the queue, or wait for the next message
         let! msg = 
             if queue.Count > 0 && thread = None then async.Return(Evaluate(queue.Dequeue()))
             else inbox.Receive()
         
-        match msg, thread with
+        match msg, thread, symbols with
         // Cancel a thread evaluating the last interaction
-        | Cancel, Some (t:Thread) ->
+        | Cancel, Some (t:Thread), _ ->
             t.Abort()
-            return! running None session 
+            return! running None None session 
 
         // Thread completed or cancelling but no thread is running
-        | Done, _ | Cancel, None ->
-            return! running None session 
+        | Done, _, _ | Cancel, None, _ ->
+            return! running None None session 
 
         // Read F# Interactive output 
-        | ReadOutput repl, _ ->
+        | ReadOutput repl, _, _ ->
             let output = session.Output.ToString()
             session.Output.Clear() |> ignore
             repl.Reply({ result = "output"; output = output; details = null })
-            return! running thread session
+            return! running None thread session
 
         // Reset F# Interactive session
-        | Reset, _ ->
+        | Reset, _, _ ->
             thread |> Option.iter (fun t -> t.Abort())
-            return! running None (startSession())
+            return! running None None (startSession())
 
         // Evaluate request, but we have a thread in background -> enqueue
-        | Evaluate req, Some _ ->
-            queue.Enqueue(req)
-            return! running thread session 
+        | Evaluate(req, repl), Some _, _ ->
+            queue.Enqueue(req, repl)
+            return! running None thread session 
 
         // Evaluate request and no background processing is running
-        | Evaluate req, None ->
+        | Evaluate(req, repl), None, _ ->
             let t = Thread(fun () ->
                 try
                   try
-                    let res = evaluateInteraction req.File req.Line req.Code session
-                    req.Reply.Reply(Choice1Of2 res) 
+                    let res = evaluateInteraction req.file req.line req.code session
+                    repl.Reply(Choice1Of2 res) 
                   with e ->
-                    req.Reply.Reply(Choice2Of2 e)
+                    repl.Reply(Choice2Of2 e)
                 finally inbox.Post(Done) )
             t.Start()
-            return! running (Some t) session 
+            return! running None (Some t) session 
         
         // IntelliSense - handle autocompletion request
-        | Completion req, _ ->
-            let! results = Completion.getCompletions(session.Session, req.LineString, req.Column)
-            req.Reply.Reply(results)
-            return! running thread session }
-    running None (startSession()))
+        | Completion(req, repl), _, _ ->
+            let! symbols, results = Completion.getCompletions(session.Session, req.sourceLine, req.column)
+            repl.Reply(results)
+            return! running (Some symbols) thread session 
+        
+        // IntelliSense - handle parameter hints
+        | ParameterHints(req, repl), _, _ ->
+            let! results = Completion.getParameterHints(session.Session, req.sourceLine, req.column)
+            let result = results |> List.choose (function 
+                | ParameterTooltip.EmptyTip -> None
+                | ParameterTooltip.ToolTip(sgn, doc, pars) ->
+                    Some { signature = sgn; doc = boxXmlDoc doc; parameters = Array.ofSeq pars })
+            repl.Reply(Array.ofSeq result)
+            return! running None thread session 
+
+        // IntelliSense - handle tooltip (only after completion!)
+        | Tooltip(_, repl), _, None ->
+            repl.Reply(None) 
+            return! running None thread session 
+
+        | Tooltip(req, repl), _, Some symbols ->
+            let! tooltip = Completion.getCompletionTooltip symbols req.filter
+            let result = 
+                match tooltip with
+                | ToolTips.ToolTip(sgn, doc, ft) -> 
+                    Some { signature = sgn; doc = boxXmlDoc doc; footer = ft }
+                | ToolTips.EmptyTip -> Some(Unchecked.defaultof<_>) (* Some(null) *)
+            repl.Reply(result) 
+            return! running (Some symbols) thread session }
+
+    running None None (startSession()))
 
 
 // ------------------------------------------------------------------------------------------------
-// Expose everything via lightweight Suave server
+// Serializing F# records using Newtonsoft.Json
 // ------------------------------------------------------------------------------------------------
 
 open Suave
@@ -259,18 +310,26 @@ open Suave.Http
 open Suave.Filters
 open Suave.Operators
 
+module NJson = 
+    let private json = Newtonsoft.Json.JsonSerializer.Create()
+    let fromJson<'T> str = 
+        use sr = new StringReader(str)
+        json.Deserialize(sr, typeof<'T>) :?> 'T
+
+    let toJson (obj:'T) = 
+        let sb = StringBuilder()
+        ( use sw = new StringWriter(sb)
+          json.Serialize(sw, obj) )
+        sb.ToString()
+
+
 let handleRequest op ctx = async {
     let! result = op ctx.request
     return! ctx |> Successful.OK (NJson.toJson result) }
 
-type RestEvaluationRequest = 
-  { file : string
-    line : int
-    code : string }
-
-type RestCompletionRequest = 
-  { sourceLine : string 
-    column : int }
+// ------------------------------------------------------------------------------------------------
+// Expose everything via lightweight Suave server
+// ------------------------------------------------------------------------------------------------
 
 let app =
     Writers.setMimeType "application/json; charset=utf-8" >=>
@@ -281,13 +340,12 @@ let app =
         //  - Result<EvalDetails>      when result = "success"
         path "/eval" >=> request (fun request ctx -> async {
             let req = NJson.fromJson (Encoding.UTF8.GetString request.rawForm)
-            let! res = 
-                agent.PostAndAsyncReply(fun ch -> 
-                    Evaluate { File = req.file; Line = req.line; Code = req.code; Reply = ch })
+            let! res = agent.PostAndAsyncReply(fun ch -> Evaluate(req, ch))
             match res with 
             | Choice1Of2 result -> return! Successful.OK (NJson.toJson result) ctx
             | Choice2Of2 exn -> return! ServerErrors.INTERNAL_ERROR (exn.ToString()) ctx })
         
+
         // Returns: Result<unit>  with result = "output"
         path "/output" >=> handleRequest (fun _ -> 
             agent.PostAndAsyncReply(ReadOutput))
@@ -298,31 +356,29 @@ let app =
 
         path "/cancel" >=> handleRequest (fun _ -> async {
             agent.Post(Cancel)
-            return { result = "canceled"; output=""; details = null }}) 
-        
-        //path "/tooltip" >=> handleRequest (fun _ -> async {
-        //    let! tooltip = Completion.getCompletionTooltip filter
-        //    do! writeData "tooltip" tooltip })
+            return { result = "canceled"; output=""; details = null }})         
 
+
+        // Returns: ToolTipResponse which may be 'null' or BAD_REQUEST if /completion not called first
+        path "/tooltip" >=> request (fun request ctx -> async {
+            let req = NJson.fromJson (Encoding.UTF8.GetString request.rawForm)
+            let! res = agent.PostAndAsyncReply(fun ch -> Tooltip(req, ch))
+            match res with
+            | Some result -> return! Successful.OK (NJson.toJson result) ctx
+            | None -> return! RequestErrors.BAD_REQUEST "Call /completion first" ctx  })
+
+        // Returns: CompletionData[]            
         path "/completion" >=> handleRequest (fun r -> async {
             let req = NJson.fromJson (Encoding.UTF8.GetString r.rawForm)
-            let! res = agent.PostAndAsyncReply(fun ch ->
-              Completion { LineString = req.sourceLine; Column = req.column; Reply = ch })
+            let! res = agent.PostAndAsyncReply(fun ch -> Completion(req, ch))
             return res })
-(*
-                        return currentInput
-                    | Completion context ->
-                        let col, lineStr = context
-                        let! results = Completion.getCompletions(fsiSession, lineStr, col)
-                        do! writeData "completion" results
-                        return currentInput
-                    | ParameterHints context ->
-                        let col, lineStr = context
-                        let! results = Completion.getParameterHints(fsiSession, lineStr, col)
-                        do! writeData "parameter-hints" results
-                        return currentInput
-*)
-            ]
+
+        // Returns: ???
+        path "/paramhints" >=> handleRequest (fun r -> async {
+            let req = NJson.fromJson (Encoding.UTF8.GetString r.rawForm)
+            let! res = agent.PostAndAsyncReply(fun ch -> ParameterHints(req, ch))
+            return res })   ]
+
 
 [<EntryPoint>]
 let main argv =

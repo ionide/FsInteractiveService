@@ -120,7 +120,7 @@ module Lexer =
                 StaticallyResolvedTypeParameterPrefix
              else Other
         elif token.Tag = FSharpTokenTag.LPAREN then
-            if token.FullMatchedLength = 1 && lineStr.[token.LeftColumn+1] = '|' then
+            if token.FullMatchedLength = 1 && token.LeftColumn + 1 < lineStr.Length && lineStr.[token.LeftColumn+1] = '|' then
                ActivePattern
             else Other
         else Other

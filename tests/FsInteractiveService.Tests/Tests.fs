@@ -188,3 +188,27 @@ let ``Can do autocomplete on Microsoft.FSharp namespace``() =
   |> withContent { sourceLine = "Microsoft.FSharp.Collections.Array4D.length1"; column = 17 }
   |> getResponse Main.app 
   |> should contain "NativeInterop"
+
+[<Test>]
+let ``Can get tooltips after performing autocomplete``() = 
+  makeContext "/completion"
+  |> withContent { sourceLine = "List."; column = 5 }
+  |> getResponse Main.app 
+  |> should contain "pairwise"
+
+  makeContext "/tooltip"
+  |> withContent { filter = "filter" }
+  |> getResponse Main.app 
+  |> should contain "M:Microsoft.FSharp.Collections.ListModule.Filter``1"
+
+  makeContext "/tooltip"
+  |> withContent { filter = "nada" }
+  |> getResponse Main.app 
+  |> should equal "null"
+
+[<Test>]
+let ``Can get parameter hints on method calls``() = 
+  makeContext "/paramhints"
+  |> withContent { sourceLine = "System.Console.WriteLine(134)"; column = 25 }
+  |> getResponse Main.app 
+  |> should contain "M:System.Console.WriteLine(System.Int32)"
