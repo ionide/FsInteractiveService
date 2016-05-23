@@ -5,6 +5,7 @@
 #I "../../src/FsInteractiveService/bin/Debug"
 #r "Suave.dll"
 #r "FSharp.Compiler.Service.dll"
+#r "FsInteractiveService.Shared.dll"
 #r "FsInteractiveService.exe"
 #else
 module FsInteractiveService.Tests

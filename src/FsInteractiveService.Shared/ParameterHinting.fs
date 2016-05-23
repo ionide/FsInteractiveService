@@ -1,4 +1,5 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace FsInteractiveService.Shared
+
 open Microsoft.FSharp.Compiler.SourceCodeServices
 
 module ParameterHinting =

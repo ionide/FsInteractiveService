@@ -1,9 +1,8 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace FsInteractiveService.Shared
 open System
 open System.Text
 open System.IO
 open Microsoft.FSharp.Compiler.SourceCodeServices
-open ExtCore
 
 module Seq =
     let tryHead items =
@@ -16,6 +15,13 @@ module List =
         List.maxBy(fun n -> if n > nmax then 0 else n)
         
 module Option =
+    let inline fill d o = 
+        defaultArg o d
+
+    let inline attempt f = 
+        try Some(f ())
+        with _ -> None
+
     let inline getOrElse f o =
         match o with
         | Some v -> v
@@ -32,7 +38,7 @@ module Option =
 
     /// Convert string into Option string where null and String.Empty result in None
     let inline ofString (s:string) =
-        if String.isNullOrEmpty s then None
+        if String.IsNullOrEmpty s then None
         else Some s
 
     /// Some(Some x) -> Some x | None -> None
@@ -220,22 +226,6 @@ module ConstraintExt =
         member x.IsProperty =
             (x.MemberIsStatic && x.MemberArgumentTypes.Count = 0) ||
             (not x.MemberIsStatic && x.MemberArgumentTypes.Count = 1)
-
-module AsyncChoice =
-    let inline ofOptionWith e =
-        Control.Async.map (Choice.ofOptionWith e)
-
-[<AutoOpen>]
-module AsyncChoiceCE =
-    type ExtCore.Control.AsyncChoiceBuilder with
-        member inline __.ReturnFrom (choice : Choice<'T, 'Error>) : Async<Choice<'T, 'Error>> = async.Return choice
-
-        member inline __.Bind (value : Choice<'T, 'Error>, binder : 'T -> Async<Choice<'U, 'Error>>) : Async<Choice<'U, 'Error>> =
-            async {
-                match value with
-                | Error error -> return Choice2Of2 error
-                | Success x -> return! binder x
-            }
 
 module Async =
     let inline startAsPlainTask (work : Async<unit>) =

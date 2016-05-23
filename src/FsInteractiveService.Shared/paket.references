@@ -1,2 +1,3 @@
-ExtCore
+group Build
+
 FSharp.Compiler.Service

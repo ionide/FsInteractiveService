@@ -1,11 +1,10 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace FsInteractiveService.Shared
 
 open System
 open System.Diagnostics
 open System.IO
 open System.Text
 open Microsoft.FSharp.Compiler.SourceCodeServices
-open ExtCore.Control
 
 type SymbolKind =
     | Ident

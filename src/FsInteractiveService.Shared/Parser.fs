@@ -1,4 +1,5 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace FsInteractiveService.Shared
+
 open System
 open Microsoft.FSharp.Compiler.SourceCodeServices
 open Microsoft.FSharp.Compiler

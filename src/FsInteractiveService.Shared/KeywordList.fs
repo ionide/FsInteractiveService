@@ -1,4 +1,4 @@
-﻿namespace MonoDevelop.FSharp.Shared
+﻿namespace FsInteractiveService.Shared
 
 module internal KeywordList =
     let modifiers = 

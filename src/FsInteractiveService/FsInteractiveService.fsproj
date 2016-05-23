@@ -51,6 +51,13 @@
     <None Include="paket.references" />
     <None Include="paket.template" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FsInteractiveService.Shared\FsInteractiveService.Shared.fsproj">
+      <Name>FsInteractiveService.Shared</Name>
+      <Project>{af5fead5-b50e-4f07-a274-32f23d5c504d}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>

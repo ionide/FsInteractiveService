@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{63297B98-5CED-492C-A5B7-A5B4F73CF142}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,6 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ED8079DD
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsInteractiveService.Tests", "tests\FsInteractiveService.Tests\FsInteractiveService.Tests.fsproj", "{51C80AEF-D584-4E95-991C-FD713A004C3B}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FsInteractiveService.Shared", "src\FsInteractiveService.Shared\FsInteractiveService.Shared.fsproj", "{AF5FEAD5-B50E-4F07-A274-32F23D5C504D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{51C80AEF-D584-4E95-991C-FD713A004C3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51C80AEF-D584-4E95-991C-FD713A004C3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51C80AEF-D584-4E95-991C-FD713A004C3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF5FEAD5-B50E-4F07-A274-32F23D5C504D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF5FEAD5-B50E-4F07-A274-32F23D5C504D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF5FEAD5-B50E-4F07-A274-32F23D5C504D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF5FEAD5-B50E-4F07-A274-32F23D5C504D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
