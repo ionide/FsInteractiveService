@@ -408,10 +408,8 @@ Target "All" DoNothing
 "GenerateHelpDebug"
   ==> "KeepRunning"
 
-"ZipRelease"
-  ==> "Release"
-
 "ReleaseDocs"
+  ==> "ZipRelease"
   ==> "Release"
 
 "BuildPackage"

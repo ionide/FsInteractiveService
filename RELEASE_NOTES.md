@@ -1,4 +1,4 @@
-#### 0.1.1 - May 23, 2016
+#### 0.1.2 - May 23, 2016
  * Updated GitHub release
 
 #### 0.1.0 - May 23, 2016
