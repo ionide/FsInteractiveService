@@ -2,10 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>F# Interactive Service
-</title>
+    <title>List - FsInteractiveService</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="F# interactive service API exposed via a lightweight HTTP server"/>
+    <meta name="description" content=""/>
     <meta name="author" content="Tomas Petricek"/>
 
     <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
@@ -33,42 +32,46 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1><a name="F-Interactive-Service" class="anchor" href="#F-Interactive-Service">F# Interactive Service</a></h1>
-<p>The FsInteractiveService project provides a simple layer over the F# Interactive services
-from the <a href="http://fsharp.github.io/FSharp.Compiler.Services">F# Compiler Services project</a>. It makes the
-service available as a stand-alone process that can be started and called via HTTP requests. It is very
-similar to the <a href="https://github.com/fsharp/FsAutoComplete/">FsAutoComplete</a> project, which provides similar
-out-of-process wrapper for F# Compiler IDE services.</p>
-<p>The FsInteractiveService project can be used to build F# Interactive editor integration for editors
-that are not based on .NET such as Atom. For example, the following shows some of the features of the
-F# Interactive integration in <a href="http://ionide.io">Ionide</a>.</p>
-<img src="img/atom.png" style="width:80%; margin:10px 10% 10px 10%" />
-<h2><a name="Documentation" class="anchor" href="#Documentation">Documentation</a></h2>
-<ul>
-<li>
-<p><a href="htmlprinter.html">Creating HTML printers</a> discusses an extension that F# Interactive Service provides
-for formatting values as HTML objects. This can be done by registering a printer using <code>fsi.AddHtmlPrinter</code>.</p>
-</li>
-<li>
-<p><a href="http.html">Calling FsInteractiveService via HTTP</a> shows how to start the <code>FsInteractiveService.exe</code> process
-in background and how to communicate with it using REST-based API over network. It shows different commands
-you can send and responses you'll get back.</p>
-</li>
-<li>
-<p><a href="intelli.html">Using IntelliSense services via HTTP</a> discusses IntelliSense functionality exposed by the
-<code>FsInteractiveService.exe</code> process. This lets you get auto-completion in F# Interactive, access tooltips for
-objects in completion lists and get hints on method parameters.</p>
-</li>
-</ul>
-<h2><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h2>
-<p>The project is hosted on <a href="https://github.com/ionide/FsInteractiveService">GitHub</a> where you can <a href="https://github.com/ionide/FsInteractiveService/issues">report issues</a>, fork
-the project and submit pull requests. If you're adding a new public API, please also
-consider adding <a href="https://github.com/ionide/FsInteractiveService/tree/master/docs/content">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/ionide/FsInteractiveService/blob/master/README.md">library design notes</a> to understand how it works.</p>
-<p>The library is available under Public Domain license, which allows modification and
-redistribution for both commercial and non-commercial purposes. For more information see the
-<a href="https://github.com/ionide/FsInteractiveService/blob/master/LICENSE.txt">License file</a> in the GitHub repository.</p>
 
+
+
+<h1>List</h1>
+<p>
+  <span>Namespace: FsInteractiveService.Shared</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+            maxUnderThreshold nmax
+          </code>
+          <div class="tip" id="51">
+            <strong>Signature:</strong> nmax:int -&gt; int list -&gt; int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/Extensions.fs#L14-14" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          <p>Returns the greatest of all elements in the list that is less than the threshold</p>
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
         </div>
         <div class="span3">

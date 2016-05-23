@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>SymbolUse - FsInteractiveService</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Tomas Petricek"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/FsInteractiveService/content/style.css" />
+    <script type="text/javascript" src="/FsInteractiveService/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/ionide/FsInteractiveService">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/FsInteractiveService/index.html">FsInteractiveService</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>SymbolUse</h1>
+<p>
+  <span>Namespace: FsInteractiveService.Shared</span><br />
+</p>
+<div class="xmldoc">
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Active patterns</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Active pattern</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '86', 86)" onmouseover="showTip(event, '86', 86)">
+            ( |ActivePattern|_| ) _arg1
+          </code>
+          <div class="tip" id="86">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L46-46" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|ActivePattern|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '87', 87)" onmouseover="showTip(event, '87', 87)">
+            ( |ActivePatternCase|_| ) symbol
+          </code>
+          <div class="tip" id="87">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpActivePatternCase option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L21-21" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|ActivePatternCase|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '88', 88)" onmouseover="showTip(event, '88', 88)">
+            ( |Attribute|_| ) _arg1
+          </code>
+          <div class="tip" id="88">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L192-192" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Attribute|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '89', 89)" onmouseover="showTip(event, '89', 89)">
+            ( |Class|_| ) _arg1
+          </code>
+          <div class="tip" id="89">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L72-72" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Class|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '90', 90)" onmouseover="showTip(event, '90', 90)">
+            ( |ClosureOrNestedFunction|_| ) _arg1
+          </code>
+          <div class="tip" id="90">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L142-142" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|ClosureOrNestedFunction|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '91', 91)" onmouseover="showTip(event, '91', 91)">
+            ( |ComputationExpression|_| ) symbol
+          </code>
+          <div class="tip" id="91">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpSymbolUse option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L188-188" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|ComputationExpression|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '92', 92)" onmouseover="showTip(event, '92', 92)">
+            ( |Constructor|_| ) _arg1
+          </code>
+          <div class="tip" id="92">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L64-64" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Constructor|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '93', 93)" onmouseover="showTip(event, '93', 93)">
+            ( |Delegate|_| ) _arg1
+          </code>
+          <div class="tip" id="93">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L85-85" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Delegate|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '94', 94)" onmouseover="showTip(event, '94', 94)">
+            ( |Entity|_| ) symbol
+          </code>
+          <div class="tip" id="94">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L26-26" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Entity|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '95', 95)" onmouseover="showTip(event, '95', 95)">
+            ( |Enum|_| ) _arg1
+          </code>
+          <div class="tip" id="95">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L160-160" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Enum|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '96', 96)" onmouseover="showTip(event, '96', 96)">
+            ( |Event|_| ) _arg1
+          </code>
+          <div class="tip" id="96">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L89-89" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Event|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '97', 97)" onmouseover="showTip(event, '97', 97)">
+            ( |Field|_| ) symbol
+          </code>
+          <div class="tip" id="97">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpField option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L31-31" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Field|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '98', 98)" onmouseover="showTip(event, '98', 98)">
+            ( |Function|_| ) symbolUse
+          </code>
+          <div class="tip" id="98">
+            <strong>Signature:</strong> symbolUse:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L109-109" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Function|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '99', 99)" onmouseover="showTip(event, '99', 99)">
+            ( |GenericParameter|_| ) symbol
+          </code>
+          <div class="tip" id="99">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpGenericParameter option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L36-36" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|GenericParameter|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '100', 100)" onmouseover="showTip(event, '100', 100)">
+            ( |Interface|_| ) _arg1
+          </code>
+          <div class="tip" id="100">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L164-164" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Interface|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '101', 101)" onmouseover="showTip(event, '101', 101)">
+            ( |MemberFunctionOrValue|_| ) symbol
+          </code>
+          <div class="tip" id="101">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L41-41" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|MemberFunctionOrValue|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '102', 102)" onmouseover="showTip(event, '102', 102)">
+            ( |Method|_| ) symbolUse
+          </code>
+          <div class="tip" id="102">
+            <strong>Signature:</strong> symbolUse:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L100-100" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Method|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '103', 103)" onmouseover="showTip(event, '103', 103)">
+            ( |Module|_| ) _arg1
+          </code>
+          <div class="tip" id="103">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L168-168" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Module|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '104', 104)" onmouseover="showTip(event, '104', 104)">
+            ( |Namespace|_| ) _arg1
+          </code>
+          <div class="tip" id="104">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L172-172" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Namespace|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '105', 105)" onmouseover="showTip(event, '105', 105)">
+            ( |Operator|_| ) symbolUse
+          </code>
+          <div class="tip" id="105">
+            <strong>Signature:</strong> symbolUse:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L120-120" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Operator|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '106', 106)" onmouseover="showTip(event, '106', 106)">
+            ( |Parameter|_| ) symbol
+          </code>
+          <div class="tip" id="106">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpParameter option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L49-49" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Parameter|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '107', 107)" onmouseover="showTip(event, '107', 107)">
+            ( |Pattern|_| ) symbolUse
+          </code>
+          <div class="tip" id="107">
+            <strong>Signature:</strong> symbolUse:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L131-131" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Pattern|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '108', 108)" onmouseover="showTip(event, '108', 108)">
+            ( |Property|_| ) _arg1
+          </code>
+          <div class="tip" id="108">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L93-93" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Property|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '109', 109)" onmouseover="showTip(event, '109', 109)">
+            ( |Record|_| ) _arg1
+          </code>
+          <div class="tip" id="109">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L176-176" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Record|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '110', 110)" onmouseover="showTip(event, '110', 110)">
+            ( |StaticParameter|_| ) symbol
+          </code>
+          <div class="tip" id="110">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpStaticParameter option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L54-54" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|StaticParameter|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '111', 111)" onmouseover="showTip(event, '111', 111)">
+            ( |TypeAbbreviation|_| ) _arg1
+          </code>
+          <div class="tip" id="111">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L68-68" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|TypeAbbreviation|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '112', 112)" onmouseover="showTip(event, '112', 112)">
+            ( |Union|_| ) _arg1
+          </code>
+          <div class="tip" id="112">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L180-180" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Union|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '113', 113)" onmouseover="showTip(event, '113', 113)">
+            ( |UnionCase|_| ) symbol
+          </code>
+          <div class="tip" id="113">
+            <strong>Signature:</strong> symbol:FSharpSymbolUse -&gt; FSharpUnionCase option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L59-59" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|UnionCase|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '114', 114)" onmouseover="showTip(event, '114', 114)">
+            ( |Val|_| ) _arg1
+          </code>
+          <div class="tip" id="114">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpMemberOrFunctionOrValue option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L152-152" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|Val|_|</code></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '115', 115)" onmouseover="showTip(event, '115', 115)">
+            ( |ValueType|_| ) _arg1
+          </code>
+          <div class="tip" id="115">
+            <strong>Signature:</strong> _arg1:FSharpSymbolUse -&gt; FSharpEntity option<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+            <a href="http://github.com/ionide/FsInteractiveService/tree/master/src/FsInteractiveService.Shared/FSharpSymbolHelper.fs#L184-184" class="github-link">
+              <img src="../content/img/github.png" class="normal" />
+              <img src="../content/img/github-blue.png" class="hover" />
+            </a>
+          
+              <p>CompiledName: <code>|ValueType|_|</code></p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/FsInteractiveService/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">FsInteractiveService</li>
+            <li><a href="/FsInteractiveService/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <!--
+            <li><a href="http://nuget.org/packages/FsInteractiveService">Get Library via NuGet</a></li>
+            -->
+            <li><a href="http://github.com/ionide/FsInteractiveService">Source Code on GitHub</a></li>
+            <li><a href="/FsInteractiveService/license.html">License</a></li>
+            <li><a href="/FsInteractiveService/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Fsi extensions</li>
+            <li><a href="/FsInteractiveService/htmlprinter.html">Formatting HTML objects</a></li>
+            
+            <li class="nav-header">Calling the service</li>
+            <li><a href="/FsInteractiveService/http.html">Running code via HTTP API</a></li>
+            <li><a href="/FsInteractiveService/http.html">IntelliSense via HTTP API</a></li>
+            <li>Running code via I/O API</li>
+            <li>IntelliSense via I/O API</li>
+            <!--
+            <li class="nav-header">Documentation</li>
+            <li><a href="/FsInteractiveService/reference/index.html">API Reference</a></li>
+            -->
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/ionide/FsInteractiveService"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
