@@ -361,8 +361,8 @@ Target "Release" (fun _ ->
     Git.Commit.Commit "" (sprintf "Bump version to %s" release.NugetVersion)
     Branches.pushBranch "" remote (Information.getBranchName "")
 
-    //Branches.tag "" release.NugetVersion
-    //Branches.pushTag "" remote release.NugetVersion
+    Branches.tag "" release.NugetVersion
+    Branches.pushTag "" remote release.NugetVersion
 
     // release on github
     createClient user pw
@@ -413,7 +413,7 @@ Target "All" DoNothing
   ==> "Release"
 
 "BuildPackage"
-  //==> "PublishNuget"
+  ==> "PublishNuget"
   ==> "Release"
 
 RunTargetOrDefault "All"
