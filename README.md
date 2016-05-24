@@ -17,16 +17,14 @@ Documentation
  * [F# Interactive Service home](http://ionide.io/FsInteractiveService) is the homepage for the project.
    Go here to get started with FsInteractiveService.
 
- * [Creating HTML printers](http://ionide.io/FsInteractiveService/htmlprinter.html) discusses an extension that F# Interactive Service provides
-   for formatting values as HTML objects. This can be done by registering a printer using `fsi.AddHtmlPrinter`.
+ * [Creating HTML printers](http://ionide.io/FsInteractiveService/htmlprinter.html) discusses an extension that 
+   F# Interactive Service provides    for formatting values as HTML objects. This can be done by registering a 
+   printer using `fsi.AddHtmlPrinter`.
 
- * [Evaluating snippets via HTTP API](http://ionide.io/FsInteractiveService/http.html) shows how to start the `FsInteractiveService.exe` process
-   in background and how to communicate with it using REST-based API over network. It shows different commands
-   you can send and responses you'll get back.
+ * [Evaluating snippets via HTTP API](http://ionide.io/FsInteractiveService/http.html) shows how to start the 
+   `FsInteractiveService.exe` process in background and how to communicate with it using REST-based API over 
+   network. It shows different commands you can send and responses you'll get back.
 
-
- * [Getting IntelliSense info via HTTP PI](http://ionide.io/FsInteractiveService/intelli.html) discusses IntelliSense functionality exposed by the
-
-   `FsInteractiveService.exe` process. This lets you get auto-completion in F# Interactive, access tooltips for
- 
-   objects in completion lists and get hints on method parameters.
+ * [Getting IntelliSense info via HTTP PI](http://ionide.io/FsInteractiveService/intelli.html) discusses 
+   IntelliSense functionality exposed by the `FsInteractiveService.exe` process. This lets you get auto-completion
+   in F# Interactive, access tooltips for objects in completion lists and get hints on method parameters.
