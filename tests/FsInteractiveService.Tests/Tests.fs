@@ -140,7 +140,9 @@ let ``HAS_FSI_ADDHTMLPRINTER is defined`` () =
 [<Test>]
 let ``Can use AddHtmlPrinter for formatting objects as HTML`` () = 
   makeContext "/eval"
-  |> withContent { file = "/test.fsx"; line = 10; code = """fsi.AddHtmlPrinter(fun (n:int) -> "<strong>" + string n + "</strong>")""" } 
+  |> withContent { file = "/test.fsx"; line = 10; code = """fsi.AddHtmlPrinter(fun (n:int) -> 
+      seq ["style", "<style>strong { color:red; }</style>"],
+      "<strong>" + string n + "</strong>")""" } 
   |> getResponse Main.app 
   |> ignore
 
@@ -148,6 +150,11 @@ let ``Can use AddHtmlPrinter for formatting objects as HTML`` () =
   |> withContent { file = "/test.fsx"; line = 10; code = """42""" } 
   |> getResponse Main.app
   |> should contain "<strong>42</strong>"
+
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """42""" } 
+  |> getResponse Main.app
+  |> should contain "color:red"
 
 [<Test>]
 let ``The `it` value is reset after it is accessed once`` () = 

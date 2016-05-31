@@ -148,7 +148,8 @@ a printer that makes integers bold:
 Http.RequestString
   ( "http://localhost:18082/eval", httpMethod="POST", 
     body=TextRequest """{ "file":"/a.fsx", "line":10,   
-      "code":"fsi.AddHtmlPrinter(fun (n:int) -> sprintf \"<b>%d</b>\" n)"}""")
+      "code":"fsi.AddHtmlPrinter(fun (n:int) -> 
+        Seq.empty, sprintf \"<b>%d</b>\" n)"}""")
 (**
 This evaluates without returning anything interesting. Now, we can evaluate an expression
 that returns an `int`:
@@ -161,7 +162,9 @@ Http.RequestString
 (*** include-it:it8 ***)
 (**
 When HTML printer is registered for a type, the `details` field will incldue the result of calling the
-HTML printer in the `html` field. You can see that we got `"<b>42</b>"` here!
+HTML printer in the `html` field. You can see that we got `"<b>42</b>"` here! The `Seq.empty` parameter
+here specifies that no additional styles or scripts are required - for more information, see the 
+[AddHtmlPrinter documentation page](htmlprinter.html).
 
 Wrapping up
 -----------

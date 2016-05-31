@@ -45,9 +45,17 @@ type TypeCheckError =
     errorNumber : int
     message : string }
 
+type HtmlKeyValue = 
+  { key : string
+    value : string }
+
+type HtmlResult =
+  { body : string
+    parameters : HtmlKeyValue[] }
+
 type EvalDetails =
   { string : string
-    html : string 
+    html : HtmlResult
     warnings : TypeCheckError[] }
 
 
@@ -86,15 +94,16 @@ let addHtmlPrinter = """
   module FsInteractiveService = 
     let mutable htmlPrinters = []
     let tryFormatHtml o = htmlPrinters |> Seq.tryPick (fun f -> f o)
-
+    let htmlPrinterParams = System.Collections.Generic.Dictionary<string, obj>()
+    do htmlPrinterParams.["html-standalone-output"] <- false
 
   type Microsoft.FSharp.Compiler.Interactive.InteractiveSession with
-    member x.AddHtmlPrinter<'T>(f:'T -> string) = 
+    member x.HtmlPrinterParameters = FsInteractiveService.htmlPrinterParams
+    member x.AddHtmlPrinter<'T>(f:'T -> seq<string * string> * string) = 
       FsInteractiveService.htmlPrinters <- (fun (value:obj) ->
         match value with
         | :? 'T as value -> Some(f value)
         | _ -> None) :: FsInteractiveService.htmlPrinters"""
-
 
 /// Start the F# interactive session with HAS_FSI_ADDHTMLPRINTER symbol defined
 let startSession () = 
@@ -188,12 +197,17 @@ let evaluateInteraction file line (code:string) session =
         session.Session.EvalInteraction("(null:obj)")
         session.Output.Clear() |> ignore
         match itval with
-        | Choice1Of2(Some(FsiTupleResult(itval, (:? option<string> as html)))), _ when itval <> null ->
+        | Choice1Of2(Some(FsiTupleResult(itval, (:? option<seq<string * string> * string> as html)))), _ when itval <> null ->
+            let html = 
+              match html with
+              | Some(ps, body) -> { parameters = [| for k, v in ps -> { key = k; value = v } |]; body = body }
+              | None -> Unchecked.defaultof<_> (* null in JSON *)
             { result = "success"; output = output; 
-              details = { string = itval.ToString(); html = defaultArg html null; warnings = convertErrors warnings } } 
+              details = { string = itval.ToString(); html = html; warnings = convertErrors warnings } } 
         | _ -> 
+            let html = Unchecked.defaultof<_> (* null in JSON *)
             { result = "success"; output = output; 
-              details = { string = null; html = null; warnings = convertErrors warnings } } 
+              details = { string = null; html = html; warnings = convertErrors warnings } } 
 
 
 // ------------------------------------------------------------------------------------------------
