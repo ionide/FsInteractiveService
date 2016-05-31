@@ -280,11 +280,13 @@ a printer that makes integers bold:</p>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
+<span class="l">5: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs10', 40)" onmouseover="showTip(event, 'fs10', 40)" class="t">Http</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs11', 41)" onmouseover="showTip(event, 'fs11', 41)" class="f">RequestString</span>
   ( <span class="s">&quot;http://localhost:18082/eval&quot;</span>, <span class="i">httpMethod</span><span class="o">=</span><span class="s">&quot;POST&quot;</span>, 
     <span class="i">body</span><span class="o">=</span><span onmouseout="hideTip(event, 'fs12', 42)" onmouseover="showTip(event, 'fs12', 42)" class="p">TextRequest</span> <span class="s">&quot;&quot;&quot;{ &quot;file&quot;:&quot;/a.fsx&quot;, &quot;line&quot;:10,   </span>
-<span class="s">      &quot;code&quot;:&quot;fsi.AddHtmlPrinter(fun (n:int) -&gt; sprintf \&quot;&lt;b&gt;%d&lt;/b&gt;\&quot; n)&quot;}&quot;&quot;&quot;</span>)
+<span class="s">      &quot;code&quot;:&quot;fsi.AddHtmlPrinter(fun (n:int) -&gt; </span>
+<span class="s">        Seq.empty, sprintf \&quot;&lt;b&gt;%d&lt;/b&gt;\&quot; n)&quot;}&quot;&quot;&quot;</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -307,12 +309,17 @@ that returns an <code>int</code>:</p>
   "output": "val it : int = 42\r\n",
   "details": {
     "string": "42",
-    "html": "&lt;b&gt;42&lt;/b&gt;",
+    "html": {
+      "body": "&lt;b&gt;42&lt;/b&gt;",
+      "parameters": []
+    },
     "warnings": []
   }
 }</code></pre></td></tr></table>
 <p>When HTML printer is registered for a type, the <code>details</code> field will incldue the result of calling the
-HTML printer in the <code>html</code> field. You can see that we got <code>"&lt;b&gt;42&lt;/b&gt;"</code> here!</p>
+HTML printer in the <code>html</code> field. You can see that we got <code>"&lt;b&gt;42&lt;/b&gt;"</code> here! The <code>Seq.empty</code> parameter
+here specifies that no additional styles or scripts are required - for more information, see the
+<a href="htmlprinter.html">AddHtmlPrinter documentation page</a>.</p>
 <h2><a name="Wrapping-up" class="anchor" href="#Wrapping-up">Wrapping up</a></h2>
 <p>Do not forget to kill the <code>FsInteractiveService.exe</code> process at the end...</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>

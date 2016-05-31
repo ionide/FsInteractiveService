@@ -60,23 +60,45 @@ inside an <code>#if .. #endif</code> block for compatibility reasons:</p>
 <span class="l"> 8: </span>
 <span class="l"> 9: </span>
 <span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#if</span> <span class="i">HAS_FSI_ADDHTMLPRINTER</span>
 <span class="inactive">fsi.AddHtmlPrinter(fun</span><span class="inactive"> </span><span class="inactive">(Table</span><span class="inactive"> </span><span class="inactive">t)</span><span class="inactive"> </span><span class="inactive">-&gt;</span>
-<span class="inactive">  </span><span class="inactive">[</span><span class="inactive"> </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;table&gt;&quot;</span>
-<span class="inactive">    </span><span class="inactive">for</span><span class="inactive"> </span><span class="inactive">i</span><span class="inactive"> </span><span class="inactive">in</span><span class="inactive"> </span><span class="inactive">0</span><span class="inactive"> </span><span class="inactive">..</span><span class="inactive"> </span><span class="inactive">t.GetLength(0)-1</span><span class="inactive"> </span><span class="inactive">do</span>
-<span class="inactive">      </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;tr&gt;&quot;</span>
-<span class="inactive">      </span><span class="inactive">for</span><span class="inactive"> </span><span class="inactive">j</span><span class="inactive"> </span><span class="inactive">in</span><span class="inactive"> </span><span class="inactive">0</span><span class="inactive"> </span><span class="inactive">..</span><span class="inactive"> </span><span class="inactive">t.GetLength(1)-1</span><span class="inactive"> </span><span class="inactive">do</span>
-<span class="inactive">        </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;td&gt;&quot;</span><span class="inactive"> </span><span class="inactive">+</span><span class="inactive"> </span><span class="inactive">t.[i,j]</span><span class="inactive"> </span><span class="inactive">+</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/td&gt;&quot;</span><span class="inactive"> </span>
-<span class="inactive">      </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/tr&gt;&quot;</span>
-<span class="inactive">    </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/table&gt;&quot;</span><span class="inactive"> </span><span class="inactive">]</span><span class="inactive"> </span><span class="inactive">|&gt;</span><span class="inactive"> </span><span class="inactive">String.concat</span><span class="inactive"> </span><span class="inactive">&quot;&quot;)</span>
+<span class="inactive">  </span><span class="inactive">let</span><span class="inactive"> </span><span class="inactive">body</span><span class="inactive"> </span><span class="inactive">=</span><span class="inactive"> </span>
+<span class="inactive">    </span><span class="inactive">[</span><span class="inactive"> </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;table&gt;&quot;</span>
+<span class="inactive">      </span><span class="inactive">for</span><span class="inactive"> </span><span class="inactive">i</span><span class="inactive"> </span><span class="inactive">in</span><span class="inactive"> </span><span class="inactive">0</span><span class="inactive"> </span><span class="inactive">..</span><span class="inactive"> </span><span class="inactive">t.GetLength(0)-1</span><span class="inactive"> </span><span class="inactive">do</span>
+<span class="inactive">        </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;tr&gt;&quot;</span>
+<span class="inactive">        </span><span class="inactive">for</span><span class="inactive"> </span><span class="inactive">j</span><span class="inactive"> </span><span class="inactive">in</span><span class="inactive"> </span><span class="inactive">0</span><span class="inactive"> </span><span class="inactive">..</span><span class="inactive"> </span><span class="inactive">t.GetLength(1)-1</span><span class="inactive"> </span><span class="inactive">do</span>
+<span class="inactive">          </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;td&gt;&quot;</span><span class="inactive"> </span><span class="inactive">+</span><span class="inactive"> </span><span class="inactive">t.[i,j]</span><span class="inactive"> </span><span class="inactive">+</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/td&gt;&quot;</span><span class="inactive"> </span>
+<span class="inactive">        </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/tr&gt;&quot;</span>
+<span class="inactive">      </span><span class="inactive">yield</span><span class="inactive"> </span><span class="inactive">&quot;&lt;/table&gt;&quot;</span><span class="inactive"> </span><span class="inactive">]</span><span class="inactive"> </span>
+<span class="inactive">    </span><span class="inactive">|&gt;</span><span class="inactive"> </span><span class="inactive">String.concat</span><span class="inactive"> </span><span class="inactive">&quot;&quot;</span>
+<span class="inactive">  </span><span class="inactive">seq</span><span class="inactive"> </span><span class="inactive">[</span><span class="inactive"> </span><span class="inactive">&quot;style&quot;,</span><span class="inactive"> </span><span class="inactive">&quot;&lt;style&gt;table</span><span class="inactive"> </span><span class="inactive">{</span><span class="inactive"> </span><span class="inactive">background:#f0f0f0;</span><span class="inactive"> </span><span class="inactive">}&lt;/style&gt;&quot;</span><span class="inactive"> </span><span class="inactive">],</span>
+<span class="inactive">  </span><span class="inactive">body</span><span class="inactive"> </span><span class="inactive">)</span>
 <span class="prep">#endif</span>
 </code></pre></td>
 </tr>
 </table>
-<p>This defines a HTML printer that formats values of type <code>Table</code>. Note that this is done based on
-the type of the function - the <code>AddHtmlPrinter</code> method takes a function <code>'a -&gt; string</code> and it
-registers a mapping for values of type <code>'a</code>.</p>
+<p>This defines a HTML printer that formats values of type <code>Table</code>. The function passed to
+<code>AddHtmlPrinter</code> needs to return a value of type <code>seq&lt;string*string&gt; * string</code>. This is
+a tuple consisting of two things:</p>
+<ul>
+<li>
+<p>The second element is the HTML body that represents the formatted value. Typically,
+editors will embed this into HTML output.</p>
+</li>
+<li>
+<p>A sequence of key value pairs that represents additional styles and sripts used that
+are required by the body. The keys can be <code>style</code> or <code>script</code> (or other custom keys
+supported by editors) and can be treated in a special way by the editors (e.g. if
+loading JavaScript dynamically requires placing the HTML content in an <code>&lt;iframe&gt;</code>).</p>
+</li>
+</ul>
+<p>Note that this is done based on the type of the function - the <code>AddHtmlPrinter</code>
+method takes a function <code>'a -&gt; _</code> and it registers a mapping for values of type <code>'a</code>.</p>
 <p>You can now define a table as follows:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -103,6 +125,27 @@ for example, a value binding as above.</p>
 <p>If you are <a href="http.html">calling FsInteractiveService via HTTP</a>, then the formatted HTML will be
 returned as part of the resulting JSON - inside the <code>html</code> field of the <code>details</code> fields of the
 returned JSON.</p>
+<h2><a name="Specifying-HTML-formatting-parameters" class="anchor" href="#Specifying-HTML-formatting-parameters">Specifying HTML formatting parameters</a></h2>
+<p>In addition to the <code>fsi.AddHtmlPrinter</code> function, the FsInteractiveService also provides a
+way of specifying HTML formatting parameters. This may be used by editors and libraries to
+configure how printing of different elements is done.</p>
+<p>One parameter that is specified by the FsInteractiveService (with default value <code>false</code>) is
+<code>html-standalone-output</code>. This specifies whether the produced HTML should be standalone HTML
+that does not require any background service (and can be saved locally). The <code>false</code> value
+means that formatters can start background HTTP servers and call them from the formatted HTML
+code (e.g. to load data on the fly). To access the parameter, use:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#if</span> <span class="i">HAS_FSI_ADDHTMLPRINTER</span>
+<span class="inactive">let</span><span class="inactive"> </span><span class="inactive">standaloneHtmlOutput</span><span class="inactive"> </span><span class="inactive">=</span><span class="inactive"> </span>
+<span class="inactive">  </span><span class="inactive">fsi.HtmlPrinterParameters.[&quot;html-standalone-output&quot;]</span><span class="inactive"> </span><span class="inactive">:?&gt;</span><span class="inactive"> </span><span class="inactive">bool</span>
+<span class="prep">#endif</span>
+</code></pre></td>
+</tr>
+</table>
 
 <div class="tip" id="fs1">Multiple items<br />union case Table.Table: string [,] -&gt; Table<br /><br />--------------------<br />type Table = | Table of string [,]<br /><br />Full name: Htmlprinter.Table</div>
 <div class="tip" id="fs2">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
