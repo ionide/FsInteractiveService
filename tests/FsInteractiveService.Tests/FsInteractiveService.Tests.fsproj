@@ -60,6 +60,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FsInteractiveService">
+      <HintPath>..\..\bin\FsInteractiveService\FsInteractiveService.exe</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -73,13 +76,6 @@
   </Target>
   -->
   <Import Project="..\..\.paket\paket.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\FsInteractiveService\FsInteractiveService.fsproj">
-      <Name>FsInteractiveService</Name>
-      <Project>{020f5f39-566e-4604-8df0-3274671000af}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Target Name="AfterBuild">
     <Copy SourceFiles="..\..\packages\build\FSharp.Core\lib\net40\FSharp.Core.dll" DestinationFolder="$(OutputPath)" />
     <Copy SourceFiles="..\..\packages\build\FSharp.Core\lib\net40\FSharp.Core.optdata" DestinationFolder="$(OutputPath)" />
