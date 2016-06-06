@@ -252,10 +252,15 @@ let agent = MailboxProcessor.Start(fun inbox ->
             return! running None None session 
 
         // Read F# Interactive output 
-        | ReadOutput repl, _, _ ->
+        | ReadOutput repl, None, _ ->
             let output = session.Output.ToString()
             session.Output.Clear() |> ignore
             repl.Reply({ result = "output"; output = output; details = null })
+            return! running None thread session
+
+        // Do not read F# Interactive output when it's processed by background thread
+        | ReadOutput repl, Some _, _ ->
+            repl.Reply({ result = "output"; output = ""; details = null })
             return! running None thread session
 
         // Reset F# Interactive session
