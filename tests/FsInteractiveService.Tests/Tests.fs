@@ -3,8 +3,8 @@
 #r "../../packages/test/FSharp.Data/lib/net40/FSharp.Data.dll"
 #r "../../packages/test/FsUnit/lib/net45/FsUnit.NUnit.dll"
 #I "../../src/FsInteractiveService/bin/Debug"
-#r "Suave.dll"
 #r "FSharp.Compiler.Service.dll"
+#r "FsInteractiveService.Suave.dll"
 #r "FsInteractiveService.Shared.dll"
 #r "FsInteractiveService.exe"
 #else
@@ -136,6 +136,20 @@ let ``HAS_FSI_ADDHTMLPRINTER is defined`` () =
   makeContext "/eval"
   |> withContent { file = "/test.fsx"; line = 10; code = "#if HAS_FSI_ADDHTMLPRINTER\n\"fsi addhtml defined\"\n#else\n\"\"\n#endif" } 
   |> getResponse Main.app |> should contain "fsi addhtml defined"
+
+
+[<Test>]
+let ``Can use AddPrinter for formatting objects`` () = 
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """fsi.AddPrinter(fun (b:byte) -> "BYTE: " + string b)""" } 
+  |> getResponse Main.app 
+  |> ignore
+
+  makeContext "/eval"
+  |> withContent { file = "/test.fsx"; line = 10; code = """42uy""" } 
+  |> getResponse Main.app
+  |> should contain "BYTE: 42"
+
 
 [<Test>]
 let ``Can use AddHtmlPrinter for formatting objects as HTML`` () = 

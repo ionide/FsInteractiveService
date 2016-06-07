@@ -115,21 +115,19 @@ let startSession () =
     let argv = [| "/tmp/fsi.exe" |]
     let allArgs = Array.append argv [|"--noninteractive"; "--define:HAS_FSI_ADDHTMLPRINTER" |]
 
-    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi, false)
+    let fsiObj = Microsoft.FSharp.Compiler.Interactive.Settings.fsi
+    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(fsiObj, false)
     let fsiSession = FsiEvaluationSession.Create(fsiConfig, allArgs, inStream, outStream, errStream) 
     
     // Report unhandled background exceptions to the output stream
     AppDomain.CurrentDomain.UnhandledException.Add(fun ex ->
         sbOut.AppendLine(ex.ExceptionObject.ToString()) |> ignore )
-
+ 
     // Load the `fsi` object from the right location of the `FSharp.Compiler.Interactive.Settings.dll`
     // assembly and add the `fsi.AddHtmlPrinter` extension method; then clean it from FSI output
     let origLength = sbOut.Length
 
-    let interactiveSessionLocation = typeof<Microsoft.FSharp.Compiler.Interactive.InteractiveSession>.Assembly.Location
-    let fsiLocation                = Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi.GetType().Assembly.Location
-
-    fsiSession.EvalInteraction("#r @\"" + interactiveSessionLocation + "\"")
+    let fsiLocation = typeof<Microsoft.FSharp.Compiler.Interactive.InteractiveSession>.Assembly.Location    
     fsiSession.EvalInteraction("#r @\"" + fsiLocation + "\"")
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
