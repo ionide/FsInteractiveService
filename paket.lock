@@ -20,9 +20,10 @@ NUGET
     Microsoft.Net.Http (2.2.29) - framework: net10, net11, net20, net30, net35, net40, net40-full
       Microsoft.Bcl (>= 1.1.10)
       Microsoft.Bcl.Build (>= 1.0.14)
+    Mono.Cecil (0.9.6.1)
     Newtonsoft.Json (8.0.3)
     Octokit (0.19)
-      Microsoft.Net.Http  - framework: net10, net11, net20, net30, net35, net40, net40-full
+      Microsoft.Net.Http
     SourceLink.Fake (1.1)
     Suave (1.1.2)
       FSharp.Core (>= 3.1.2.5)

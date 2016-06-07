@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------------------
 
 #r @"packages/build/FAKE/tools/FakeLib.dll"
+#r @"packages/build/Mono.Cecil/lib/net45/Mono.Cecil.dll"
 open Fake
 open Fake.Git
 open Fake.AssemblyInfoFile
@@ -10,6 +11,7 @@ open Fake.ReleaseNotesHelper
 open Fake.UserInputHelper
 open System
 open System.IO
+open Mono.Cecil
 #if MONO
 #else
 #load "packages/build/SourceLink.Fake/tools/Fake.fsx"
@@ -127,6 +129,19 @@ Target "CleanDocs" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Build library & test project
 
+Target "RenameDependencies" (fun _ ->
+    CreateDir "lib"
+    DeleteFile "lib/FsInteractiveService.Suave.dll"
+
+    let reader = new Mono.Cecil.DefaultAssemblyResolver()
+    reader.AddSearchDirectory("packages/build/Suave/lib/net40")
+    reader.AddSearchDirectory("packages/build/FSharp.Core/lib/net40")
+    let readerParams = new Mono.Cecil.ReaderParameters(AssemblyResolver = reader)
+    let asem = Mono.Cecil.AssemblyDefinition.ReadAssembly("packages/build/Suave/lib/net40/Suave.dll", readerParams)
+    asem.Name <- new Mono.Cecil.AssemblyNameDefinition("FsInteractiveService.Suave", new System.Version(1,0,0,0))
+    asem.Write("lib/FsInteractiveService.Suave.dll")
+)
+
 Target "BuildCore" (fun _ ->
     !! "src\FsInteractiveService\FsInteractiveService.fsproj"
     |> MSBuildRelease "" "Rebuild"
@@ -164,10 +179,8 @@ Target "ILRepack" (fun _ ->
         if result <> 0 then failwithf "Error during ILRepack execution."
         CopyFile (buildDir </> filename) targetFile
 
-    internalizeIn "FsInteractiveService.exe"
-    
-    !! (buildDir </> "Newtonsoft.Json.**") |> Seq.iter DeleteFile
-    
+    internalizeIn "FsInteractiveService.exe"    
+    !! (buildDir </> "Newtonsoft.Json.**") |> Seq.iter DeleteFile    
     DeleteDir buildMergedDir
 )
 
@@ -413,6 +426,7 @@ Target "All" DoNothing
 
 "Clean"
   ==> "AssemblyInfo"
+  ==> "RenameDependencies"
   ==> "BuildCore"
   ==> "CopyBinaries"
   ==> "ILRepack"

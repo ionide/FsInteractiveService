@@ -12,6 +12,7 @@ group Build
   nuget Newtonsoft.Json
   nuget FSharp.Core
   nuget ILRepack
+  nuget Mono.Cecil
 
   github fsharp/FAKE modules/Octokit/Octokit.fsx
 
