@@ -1,3 +1,7 @@
+#### 0.2.1 - June 7, 2016
+ * ILRepack Newtonsoft.Json (to avoid loading it twice when used by users)
+ * Use renamed version of Suave to avoid assembly loading clashes
+
 #### 0.2.0 - May 31, 2016
  * Change AddHtmlPrinter to support FsLab Journal integration
 

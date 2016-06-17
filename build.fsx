@@ -3,6 +3,7 @@
 // --------------------------------------------------------------------------------------
 
 #r @"packages/build/FAKE/tools/FakeLib.dll"
+#r @"packages/build/Mono.Cecil/lib/net45/Mono.Cecil.dll"
 open Fake
 open Fake.Git
 open Fake.AssemblyInfoFile
@@ -10,6 +11,7 @@ open Fake.ReleaseNotesHelper
 open Fake.UserInputHelper
 open System
 open System.IO
+open Mono.Cecil
 #if MONO
 #else
 #load "packages/build/SourceLink.Fake/tools/Fake.fsx"
@@ -44,9 +46,6 @@ let authors = [ "Tomas Petricek" ]
 // Tags for your project (for NuGet package)
 let tags = "fsi interactive fsharp f# service"
 
-// File system information
-let solutionFile  = "FsInteractiveService.sln"
-
 // Pattern specifying assemblies to be tested using NUnit
 let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
 
@@ -66,6 +65,7 @@ let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/ionide"
 // --------------------------------------------------------------------------------------
 
 // Read additional information from the release notes document
+System.Environment.CurrentDirectory <- __SOURCE_DIRECTORY__
 let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
 // Helper active pattern for project types
@@ -129,14 +129,59 @@ Target "CleanDocs" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Build library & test project
 
-Target "Build" (fun _ ->
-    !! solutionFile
-#if MONO
-    |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
-#else
+Target "RenameDependencies" (fun _ ->
+    CreateDir "lib"
+    DeleteFile "lib/FsInteractiveService.Suave.dll"
+
+    let reader = new Mono.Cecil.DefaultAssemblyResolver()
+    reader.AddSearchDirectory("packages/build/Suave/lib/net40")
+    reader.AddSearchDirectory("packages/build/FSharp.Core/lib/net40")
+    let readerParams = new Mono.Cecil.ReaderParameters(AssemblyResolver = reader)
+    let asem = Mono.Cecil.AssemblyDefinition.ReadAssembly("packages/build/Suave/lib/net40/Suave.dll", readerParams)
+    asem.Name <- new Mono.Cecil.AssemblyNameDefinition("FsInteractiveService.Suave", new System.Version(1,0,0,0))
+    asem.Write("lib/FsInteractiveService.Suave.dll")
+)
+
+Target "BuildCore" (fun _ ->
+    !! "src\FsInteractiveService\FsInteractiveService.fsproj"
     |> MSBuildRelease "" "Rebuild"
-#endif
     |> ignore
+    !! "src\FsInteractiveService.Shared\FsInteractiveService.Shared.fsproj"
+    |> MSBuildRelease "" "Rebuild"
+    |> ignore
+)
+
+Target "BuildTests" (fun _ ->
+    !! "tests\FsInteractiveService.Tests\FsInteractiveService.Tests.fsproj"
+    |> MSBuildRelease "" "Rebuild"
+    |> ignore
+)
+
+Target "ILRepack" (fun _ ->
+    let buildDir = "bin/FsInteractiveService"
+    let buildMergedDir = "bin/FsInteractiveService.Merged"
+    CreateDir buildMergedDir
+
+    let internalizeIn filename = 
+        let toPack =
+            [filename; "Newtonsoft.Json.dll"]
+            |> List.map (fun l -> buildDir </> l)
+            |> separated " "
+        let targetFile = buildMergedDir </> filename
+
+        let result =
+            ExecProcess (fun info ->
+                info.FileName <- currentDirectory </> "packages" </> "build" </> "ILRepack" </> "tools" </> "ILRepack.exe"
+                info.Arguments <- 
+                  sprintf "/lib:%s /ver:%s /out:%s %s" 
+                    buildDir release.AssemblyVersion targetFile toPack) (System.TimeSpan.FromMinutes 5.)
+
+        if result <> 0 then failwithf "Error during ILRepack execution."
+        CopyFile (buildDir </> filename) targetFile
+
+    internalizeIn "FsInteractiveService.exe"    
+    !! (buildDir </> "Newtonsoft.Json.**") |> Seq.iter DeleteFile    
+    DeleteDir buildMergedDir
 )
 
 // --------------------------------------------------------------------------------------
@@ -381,8 +426,11 @@ Target "All" DoNothing
 
 "Clean"
   ==> "AssemblyInfo"
-  ==> "Build"
+  ==> "RenameDependencies"
+  ==> "BuildCore"
   ==> "CopyBinaries"
+  ==> "ILRepack"
+  ==> "BuildTests"
   ==> "RunTests"
   ==> "All"
   ==> "GenerateReferenceDocs"

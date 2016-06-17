@@ -115,21 +115,19 @@ let startSession () =
     let argv = [| "/tmp/fsi.exe" |]
     let allArgs = Array.append argv [|"--noninteractive"; "--define:HAS_FSI_ADDHTMLPRINTER" |]
 
-    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi, false)
+    let fsiObj = Microsoft.FSharp.Compiler.Interactive.Settings.fsi
+    let fsiConfig = FsiEvaluationSession.GetDefaultConfiguration(fsiObj, false)
     let fsiSession = FsiEvaluationSession.Create(fsiConfig, allArgs, inStream, outStream, errStream) 
     
     // Report unhandled background exceptions to the output stream
     AppDomain.CurrentDomain.UnhandledException.Add(fun ex ->
         sbOut.AppendLine(ex.ExceptionObject.ToString()) |> ignore )
-
+ 
     // Load the `fsi` object from the right location of the `FSharp.Compiler.Interactive.Settings.dll`
     // assembly and add the `fsi.AddHtmlPrinter` extension method; then clean it from FSI output
     let origLength = sbOut.Length
 
-    let interactiveSessionLocation = typeof<Microsoft.FSharp.Compiler.Interactive.InteractiveSession>.Assembly.Location
-    let fsiLocation                = Microsoft.FSharp.Compiler.Interactive.Shell.Settings.fsi.GetType().Assembly.Location
-
-    fsiSession.EvalInteraction("#r @\"" + interactiveSessionLocation + "\"")
+    let fsiLocation = typeof<Microsoft.FSharp.Compiler.Interactive.InteractiveSession>.Assembly.Location    
     fsiSession.EvalInteraction("#r @\"" + fsiLocation + "\"")
     fsiSession.EvalInteraction(addHtmlPrinter)
     sbOut.Remove(origLength, sbOut.Length-origLength) |> ignore
@@ -252,10 +250,15 @@ let agent = MailboxProcessor.Start(fun inbox ->
             return! running None None session 
 
         // Read F# Interactive output 
-        | ReadOutput repl, _, _ ->
+        | ReadOutput repl, None, _ ->
             let output = session.Output.ToString()
             session.Output.Clear() |> ignore
             repl.Reply({ result = "output"; output = output; details = null })
+            return! running None thread session
+
+        // Do not read F# Interactive output when it's processed by background thread
+        | ReadOutput repl, Some _, _ ->
+            repl.Reply({ result = "output"; output = ""; details = null })
             return! running None thread session
 
         // Reset F# Interactive session
